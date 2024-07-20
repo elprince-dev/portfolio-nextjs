@@ -1,5 +1,6 @@
+"use client";
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "react-scroll/modules";
 import React from "react";
 import { HiArrowDown } from "react-icons/hi";
 
@@ -28,21 +29,28 @@ const HeroSection = () => {
             learning. Let's connect and share experiences and ideas!
           </p>
           <Link
-            href="projects"
+            to="projects"
+            className="text-neutral-100 font-semibold px-6 py-3 bg-teal-600 rounded shadow hover:bg-teal-700"
             activeClass="active"
             spy={true}
             smooth={true}
             offset={-100}
             duration={500}
-            className="bg-teal-600 px-6 py-3 rounded shadow hover:bg-teal-700 text-neutral-100 font-semibold"
           >
             Projects
           </Link>
         </div>
       </div>
-      <div className="flex justify-center animate-bounce">
-        <Link href="">
-          <HiArrowDown size={35} />
+      <div className="flex justify-center animate-bounce cursor-pointer">
+        <Link
+          to="about"
+          activeClass="active"
+          spy={true}
+          smooth={true}
+          offset={-100}
+          duration={500}
+        >
+          <HiArrowDown size={35} className="animate-bounce" />
         </Link>
       </div>
     </section>

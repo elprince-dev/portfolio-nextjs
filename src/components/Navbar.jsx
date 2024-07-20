@@ -3,7 +3,7 @@ import { useTheme } from "next-themes";
 import React, { useState } from "react";
 import { RiSunLine, RiMoonFill } from "react-icons/ri";
 import { IoMdMenu, IoMdClose } from "react-icons/io";
-import Link from "next/link";
+import { Link } from "react-scroll/modules";
 
 const navItems = [
   {
@@ -52,10 +52,11 @@ const Navbar = () => {
                 return (
                   <Link
                     key={index}
-                    href={item.page}
-                    className="block lg-inline-block text-neutral-900 hover:text-neutral-500 dark:text-neutral-100"
-                    smooth={true}
+                    to={item.page}
+                    className="block lg:inline-block text-neutral-900  hover:text-neutral-500 dark:text-neutral-100 cursor-pointer"
+                    activeClass="active"
                     spy={true}
+                    smooth={true}
                     offset={-100}
                     duration={500}
                     onClick={() => setNavbar(!navbar)}
