@@ -3,6 +3,7 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { BsGithub, BsArrowUpRightSquare } from "react-icons/bs";
+import { motion } from "framer-motion";
 
 const projects = [
   {
@@ -56,9 +57,13 @@ const ProjectsSection = () => {
       <div className="flex flex-col space-y-28">
         {projects.map((project, index) => {
           return (
-            <div
+            <motion.div
               key={index}
               className="flex flex-col md:flex-row md:space-x-12"
+              initial={{ opacity: 0, translateY: 200 }}
+              whileInView={{ opacity: 1, translateY: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
             >
               <div className="w-1/2 mt-8">
                 <Link href={project.link} target="_blank">
@@ -90,7 +95,7 @@ const ProjectsSection = () => {
                   </Link>
                 </div>
               </div>
-            </div>
+            </motion.div>
           );
         })}
       </div>
