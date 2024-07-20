@@ -30,9 +30,12 @@ const Navbar = () => {
       <div className="md:flex justify-between md:items-center">
         <div>
           <div className="flex justify-between items-center py-3">
-            <div className="md:py-5 md:block">
-              <h2 className="text-2xl font-bold ">Mohammad El Prince</h2>
-            </div>
+            <Link to="home">
+              <div className="md:py-5 md:block cursor-pointer">
+                <h2 className="text-2xl font-bold ">Mohammad El Prince</h2>
+              </div>
+            </Link>
+
             <div>
               <button className="md:hidden" onClick={() => setNavbar(!navbar)}>
                 {navbar ? <IoMdClose size={30} /> : <IoMdMenu size={30} />}
@@ -47,7 +50,7 @@ const Navbar = () => {
               navbar ? "block" : "hidden"
             }`}
           >
-            <div className="md:flex md:space-x-6 items-center justify-center space-y-8 md:space-y-0">
+            <div className="md:flex md:space-x-6 items-center justify-center space-y-8 md:space-y-0 text-center ">
               {navItems.map((item, index) => {
                 return (
                   <Link
