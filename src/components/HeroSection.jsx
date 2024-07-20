@@ -27,7 +27,7 @@ const HeroSection = () => {
               Software Engineer
             </span>{" "}
             with experience in leadership and engineering and constant drive to
-            learning. Let's connect and share experiences and ideas!
+            learning. Let&#39;s connect and share experiences and ideas!
           </p>
           <Link
             to="projects"
