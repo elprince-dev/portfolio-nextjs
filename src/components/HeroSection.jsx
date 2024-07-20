@@ -13,6 +13,7 @@ const HeroSection = () => {
             src="/myPhoto.png"
             width={300}
             height={300}
+            alt=""
             className="rounded-full shadow-2xl"
           />
         </div>

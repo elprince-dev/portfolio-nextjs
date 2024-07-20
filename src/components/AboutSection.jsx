@@ -85,6 +85,7 @@ const AboutSection = () => {
                 src="/coding.png"
                 width={285}
                 height={285}
+                alt=""
                 className="hidden md:block md:relative md:bottom-0  md:z-0"
               />
             </div>
