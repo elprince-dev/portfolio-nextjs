@@ -54,18 +54,18 @@ const ProjectsSection = () => {
         <hr className="w-6 h-1 mx-auto my-4 bg-teal-500 border-0 rounded"></hr>
       </h1>
 
-      <div className="flex flex-col space-y-28">
+      <div className="flex flex-col space-y-28 ">
         {projects.map((project, index) => {
           return (
             <motion.div
               key={index}
-              className="flex flex-col md:flex-row md:space-x-12"
+              className="flex flex-col md:flex-row md:space-x-12 items-center"
               initial={{ opacity: 0, translateY: 200 }}
               whileInView={{ opacity: 1, translateY: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8, ease: "easeOut" }}
             >
-              <div className="w-1/2 mt-8">
+              <div className="w-4/5 mt-8">
                 <Link href={project.link} target="_blank">
                   <Image
                     src={project.image}
@@ -75,7 +75,7 @@ const ProjectsSection = () => {
                   />
                 </Link>
               </div>
-              <div className="w-1/2 mt-8">
+              <div className="w-4/5 mt-8">
                 <h1 className="text-4xl font-bold mb-6">{project.name}</h1>
                 <p className="text-xl leading-7 mb-4 text-neutral-600 dark:text-neutral-400">
                   {project.description}
