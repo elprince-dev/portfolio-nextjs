@@ -73,7 +73,7 @@ const AboutSection = () => {
                 return (
                   <p
                     key={index}
-                    className="bg-gray-200 px-4 py-2 mr-2 mt-2 text-gray-500 rounded font-semibold"
+                    className="bg-gray-200 px-4 py-2 mr-2 mt-2 text-gray-500 rounded font-semibold transition ease-out duration-200 hover:bg-gray-500  hover:text-gray-200 cursor-pointer"
                   >
                     {skill}
                   </p>

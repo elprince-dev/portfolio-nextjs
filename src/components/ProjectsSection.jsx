@@ -38,7 +38,7 @@ const projects = [
     name: "Budget Tracker CLI",
     image: "/budget-tracker.png",
     description:
-      "a Python-based command-line application designed to help you manage your finances and track your expenses easily. This tool utilizes the SQLAlchemy library for database management and provides various features to handle your financial data effectively.",
+      "A Python-based command-line application designed to help you manage your finances and track your expenses easily. This tool utilizes the SQLAlchemy library for database management and provides various features to handle your financial data effectively.",
     techStack: ["python", "sqlite"],
     github:
       "https://github.com/mohamedmhussein/python-p3-cli-project-budget-tracker",
@@ -71,7 +71,7 @@ const ProjectsSection = () => {
                     src={project.image}
                     width={1000}
                     height={1000}
-                    className="rounded-xl shadow-xl hover:opacity-70"
+                    className="rounded-xl shadow-xl hover:opacity-70 transition ease-out duration-200"
                   />
                 </Link>
               </div>
