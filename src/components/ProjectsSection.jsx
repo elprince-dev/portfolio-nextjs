@@ -11,7 +11,7 @@ const projects = [
     image: "/portfolio.PNG",
     description:
       "A digital showcase of my professional journey, highlighting my skills and projects.",
-    techStack: ["html", "css", "javascript"],
+    techStack: ["javascript", "nextjs", "tailwindcss", "html"],
     github: "https://github.com/mohamedmhussein/phase-1-project-portfolio",
     link: "https://mohamed-hussein.onrender.com/",
   },
@@ -80,19 +80,35 @@ const ProjectsSection = () => {
                 <p className="text-xl leading-7 mb-4 text-neutral-600 dark:text-neutral-400">
                   {project.description}
                 </p>
-                <div className="flex align-bottom space-x-4">
-                  <Link href={project.github} target="_blank">
-                    <BsGithub
-                      size={30}
-                      className="cursor-pointer hover:-translate-y-1 transition-transform"
-                    />
-                  </Link>
-                  <Link href={project.link} target="_blank">
-                    <BsArrowUpRightSquare
-                      size={30}
-                      className="cursor-pointer hover:-translate-y-1 transition-transform"
-                    />
-                  </Link>
+                <div className="flex justify-between">
+                  <div className="flex align-bottom space-x-4">
+                    <Link href={project.github} target="_blank">
+                      <BsGithub
+                        size={30}
+                        className="cursor-pointer hover:-translate-y-1 transition-transform"
+                      />
+                    </Link>
+                    <Link href={project.link} target="_blank">
+                      <BsArrowUpRightSquare
+                        size={30}
+                        className="cursor-pointer hover:-translate-y-1 transition-transform"
+                      />
+                    </Link>
+                  </div>
+                  <div className=" flex space-x-3">
+                    {project.techStack.map((tech) => (
+                      <img
+                        key={tech}
+                        src={`/${tech}.svg`}
+                        className={`w-9 h-9 ${
+                          tech === "nextjs" || "sqlite"
+                            ? "dark:bg-slate-100 rounded"
+                            : ""
+                        }`}
+                        alt=""
+                      />
+                    ))}
+                  </div>
                 </div>
               </div>
             </motion.div>
