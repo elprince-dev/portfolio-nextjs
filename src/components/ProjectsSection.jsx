@@ -12,8 +12,8 @@ const projects = [
     description:
       "A digital showcase of my professional journey, highlighting my skills and projects.",
     techStack: ["javascript", "nextjs", "tailwindcss", "html"],
-    github: "https://github.com/mohamedmhussein/phase-1-project-portfolio",
-    link: "https://mohamed-hussein.onrender.com/",
+    github: "https://github.com/mohamedmhussein/portfolio-nextjs",
+    link: "elprince.net",
   },
   {
     name: "Random Acts of Kindness",
