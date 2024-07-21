@@ -18,6 +18,7 @@ const Contact = () => {
       .then(
         () => {
           setSuccess(true);
+          formRef.current.reset();
         },
         (error) => {
           setError(true);

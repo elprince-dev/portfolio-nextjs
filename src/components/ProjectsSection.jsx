@@ -95,7 +95,7 @@ const ProjectsSection = () => {
                       />
                     </Link>
                   </div>
-                  <div className=" flex space-x-3">
+                  <div className=" flex ml-5 space-x-1 flex-end flex-wrap">
                     {project.techStack.map((tech) => (
                       <img
                         key={tech}

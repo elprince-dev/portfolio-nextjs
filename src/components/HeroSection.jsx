@@ -29,7 +29,7 @@ const HeroSection = () => {
             with experience in leadership and engineering and constant drive to
             learning. Let&#39;s connect and share experiences and ideas!
           </p>
-          <div className="flex space-x-3">
+          <div className="flex space-x-3 justify-center md:justify-start">
             <Link
               to="projects"
               className="text-neutral-100 font-semibold px-6 py-3 bg-teal-600 rounded shadow hover:bg-teal-700 cursor-pointer transition ease-out duration-200"
@@ -41,10 +41,7 @@ const HeroSection = () => {
             >
               Projects
             </Link>
-            <a
-              href="/Mohammad El Prince.pdf"
-              target="_blank"
-            >
+            <a href="/Mohammad El Prince.pdf" target="_blank">
               <button class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold px-6 py-3 rounded inline-flex items-center cursor-pointer transition ease-out duration-200">
                 <svg
                   class="fill-current w-4 h-4 mr-2"
