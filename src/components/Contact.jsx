@@ -1,6 +1,7 @@
 "use client";
 import { useRef, useState } from "react";
 import emailjs from "@emailjs/browser";
+import { motion } from "framer-motion";
 
 const Contact = () => {
   const [error, setError] = useState(false);
@@ -25,7 +26,14 @@ const Contact = () => {
   }
 
   return (
-    <section id="contact" className="my-12 pb-12 md:pt-16 md:pb-48 px-12">
+    <motion.section
+      id="contact"
+      className="my-12 pb-12 md:pt-16 md:pb-48 px-12"
+      initial={{ opacity: 0, translateY: 200 }}
+      whileInView={{ opacity: 1, translateY: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.8, ease: "easeOut" }}
+    >
       <h1 className="text-center font-bold text-4xl">
         Contact
         <hr className="w-6 h-1 mx-auto my-4 bg-teal-500 border-0 rounded"></hr>
@@ -84,7 +92,7 @@ const Contact = () => {
           {success && "Thank you! I will get back to you so soon!"}
         </div>
       </form>
-    </section>
+    </motion.section>
   );
 };
 
