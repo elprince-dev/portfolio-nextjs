@@ -13,7 +13,7 @@ const projects = [
       "A digital showcase of my professional journey, highlighting my skills and projects.",
     techStack: ["javascript", "nextjs", "tailwindcss", "html"],
     github: "https://github.com/mohamedmhussein/portfolio-nextjs",
-    link: "elprince.net",
+    link: "https://mohammadelprince.vercel.app/",
   },
   {
     name: "Random Acts of Kindness",
