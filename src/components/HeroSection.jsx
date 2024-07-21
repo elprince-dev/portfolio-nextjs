@@ -29,17 +29,34 @@ const HeroSection = () => {
             with experience in leadership and engineering and constant drive to
             learning. Let&#39;s connect and share experiences and ideas!
           </p>
-          <Link
-            to="projects"
-            className="text-neutral-100 font-semibold px-6 py-3 bg-teal-600 rounded shadow hover:bg-teal-700 cursor-pointer transition ease-out duration-200"
-            activeClass="active"
-            spy={true}
-            smooth={true}
-            offset={-100}
-            duration={800}
-          >
-            Projects
-          </Link>
+          <div className="flex space-x-3">
+            <Link
+              to="projects"
+              className="text-neutral-100 font-semibold px-6 py-3 bg-teal-600 rounded shadow hover:bg-teal-700 cursor-pointer transition ease-out duration-200"
+              activeClass="active"
+              spy={true}
+              smooth={true}
+              offset={-100}
+              duration={800}
+            >
+              Projects
+            </Link>
+            <a
+              href="/Mohammad El Prince.pdf"
+              target="_blank"
+            >
+              <button class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold px-6 py-3 rounded inline-flex items-center cursor-pointer transition ease-out duration-200">
+                <svg
+                  class="fill-current w-4 h-4 mr-2"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 20 20"
+                >
+                  <path d="M13 8V2H7v6H2l8 8 8-8h-5zM0 18h20v2H0v-2z" />
+                </svg>
+                <span>Download Resume</span>
+              </button>
+            </a>
+          </div>
         </div>
       </div>
       <div className="flex justify-center animate-bounce cursor-pointer">
