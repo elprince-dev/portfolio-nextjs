@@ -7,29 +7,29 @@ import { motion } from "framer-motion";
 
 const projects = [
   {
+    name: "WriteWell",
+    image: "/writewell.PNG",
+    description:
+      "WriteWell is a blog app for bloggers to share their thought through writing blogs, edit and delete them. The app is built with nextjs for the both frontend and the api and connected with MySQL database deployed that is on AWS RDS. Images are saved on AWS S3 and connected to the database through their URLs.",
+    techStack: ["javascript", "nextjs", "html", "scss", "mysql"],
+    github: "https://github.com/mohamedmhussein/writewell",
+    link: "https://writewell.vercel.app/",
+  },
+  {
     name: "Portfolio",
     image: "/portfolio.PNG",
     description:
-      "A digital showcase of my professional journey, highlighting my skills and projects.",
+      "A digital showcase of my professional journey, highlighting my skills and projects. The app is made with nextjs as the framework and styled with tailwindcss.",
     techStack: ["javascript", "nextjs", "tailwindcss", "html"],
     github: "https://github.com/mohamedmhussein/portfolio-nextjs",
     link: "https://mohammadelprince.vercel.app/",
   },
-  {
-    name: "Random Acts of Kindness",
-    image: "/randomActsOfKindness.PNG",
-    description:
-      "The app enables users to share their acts of kindness and inspire other users to do similar acts, spreading kindness among users and promoting love.",
-    techStack: ["react", "javascript", "html", "css"],
-    github:
-      "https://github.com/mohamedmhussein/phase-2-project-random-acts-of-kindness",
-    link: "https://random-acts-of-kindness.onrender.com/",
-  },
+
   {
     name: "GPT-3 Landing Page",
     image: "/gpt3.PNG",
     description:
-      "A landing page created to describe GPT-3 technology that provides a brief introduction about this modern AI technology.",
+      "A landing page created to describe GPT-3 technology that provides a brief introduction about this modern AI technology. It is a static page that uses react with basic css styling.",
     techStack: ["react", "javascript", "html", "css"],
     github: "https://github.com/mohamedmhussein/gpt3",
     link: "https://gpt3-intro.onrender.com/",
@@ -77,7 +77,7 @@ const ProjectsSection = () => {
               </div>
               <div className="w-4/5 mt-8">
                 <h1 className="text-4xl font-bold mb-6">{project.name}</h1>
-                <p className="text-xl leading-7 mb-4 text-neutral-600 dark:text-neutral-400">
+                <p className="text-xl leading-7 mb-4 text-neutral-600 dark:text-neutral-400 text-justify">
                   {project.description}
                 </p>
                 <div className="flex justify-between">
@@ -95,12 +95,12 @@ const ProjectsSection = () => {
                       />
                     </Link>
                   </div>
-                  <div className=" flex ml-5 space-x-1 flex-end flex-wrap">
+                  <div className=" flex ml-5 space-x-3 flex-end flex-wrap">
                     {project.techStack.map((tech) => (
                       <img
                         key={tech}
                         src={`/${tech}.svg`}
-                        className={`w-9 h-9 ${
+                        className={`w-9 h-9 hover:scale-110 transition-transform cursor-pointer ${
                           tech === "nextjs" || "sqlite"
                             ? "dark:bg-slate-100 rounded"
                             : ""
