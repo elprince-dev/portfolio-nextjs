@@ -3,6 +3,7 @@ import Image from "next/image";
 import { Link } from "react-scroll/modules";
 import React from "react";
 import { HiArrowDown } from "react-icons/hi";
+import { AiOutlineGithub, AiOutlineLinkedin } from "react-icons/ai";
 
 const HeroSection = () => {
   return (
@@ -52,6 +53,20 @@ const HeroSection = () => {
                 </svg>
                 <span>Download Resume</span>
               </button>
+            </a>
+          </div>
+          <div className="flex space-x-3 py-5 px-1 justify-center md:justify-start">
+            <a href="https://github.com/mohamedmhussein" target="_blank">
+              <AiOutlineGithub
+                className="hover:-translate-y-1 transition-transform cursor-pointer text-gray-600 dark:text-neutral-100"
+                size={40}
+              />
+            </a>
+            <a href="https://www.linkedin.com/in/elprince93/" target="_blank">
+              <AiOutlineLinkedin
+                className="hover:-translate-y-1 transition-transform cursor-pointer text-gray-600 dark:text-neutral-100"
+                size={40}
+              />
             </a>
           </div>
         </div>
