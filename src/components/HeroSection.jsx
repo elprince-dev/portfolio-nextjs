@@ -43,7 +43,7 @@ const HeroSection = () => {
               Projects
             </Link>
             <a href="/Mohammad El Prince.pdf" target="_blank">
-              <button class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold px-6 py-3 rounded inline-flex items-center cursor-pointer transition ease-out duration-200">
+              <button className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold px-6 py-3 rounded inline-flex items-center cursor-pointer transition ease-out duration-200">
                 <svg
                   class="fill-current w-4 h-4 mr-2"
                   xmlns="http://www.w3.org/2000/svg"

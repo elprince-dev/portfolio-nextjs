@@ -89,10 +89,12 @@ const ProjectsSection = () => {
                       />
                     </Link>
                     <Link href={project.link} target="_blank">
-                      <BsArrowUpRightSquare
-                        size={30}
-                        className="cursor-pointer hover:-translate-y-1 transition-transform"
-                      />
+                      {project.name !== "Budget Tracker CLI" && (
+                        <BsArrowUpRightSquare
+                          size={30}
+                          className="cursor-pointer hover:-translate-y-1 transition-transform"
+                        />
+                      )}
                     </Link>
                   </div>
                   <div className=" flex ml-5 space-x-3 flex-end flex-wrap">
