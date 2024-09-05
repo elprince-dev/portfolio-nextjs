@@ -49,7 +49,7 @@ const AboutSection = () => {
             <p>
               {" "}
               I have a wide range of hobbies that keep me busy such as tennis,
-              chess, table tennis and self-development
+              chess, table tennis and self-development.
             </p>
             <br />
             <p>
