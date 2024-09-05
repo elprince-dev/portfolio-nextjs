@@ -56,7 +56,7 @@ const HeroSection = () => {
             </a>
           </div>
           <div className="flex space-x-3 py-5 px-1 justify-center md:justify-start">
-            <a href="https://github.com/mohamedmhussein" target="_blank">
+            <a href="https://github.com/elprince-dev" target="_blank">
               <AiOutlineGithub
                 className="hover:-translate-y-1 transition-transform cursor-pointer text-gray-600 dark:text-neutral-100"
                 size={40}
