@@ -35,15 +35,15 @@ const AboutSection = () => {
               {" "}
               Hi, my name is Mohammad and I am a{" "}
               <span className="font-bold"> highly ambitious</span>,{" "}
-              <span className="font-bold">self-motivated</span> {""} software
-              engineer based in Mississauga, ON
+              <span className="font-bold">self-motivated</span> {""} Software
+              Engineer based in Mississauga, ON.
             </p>
             <br />
             <p>
               {" "}
-              I learned full-stack software development at Flatiron school in
-              2023 , and have been coding since then. I went farther and learned
-              nextjs and FastAPI to expand my expertise and and projects.
+              I learned full-stack software development at Flatiron School in
+              2023 and have been coding since then. I went farther and learned
+              Next.js and FastAPI to expand my expertise and projects.
             </p>
             <br />
             <p>
