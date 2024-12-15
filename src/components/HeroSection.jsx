@@ -25,7 +25,7 @@ const HeroSection = () => {
           <p className="text-lg mt-4 mb-6">
             I&#39;m a passionate{" "}
             <span className="font-semibold text-teal-600">
-              Software Engineer
+              Problem Solver
             </span>{" "}
             with experience in leadership and engineering and constant drive to
             learning. Let&#39;s connect and share experiences and ideas!
@@ -42,7 +42,7 @@ const HeroSection = () => {
             >
               Projects
             </Link>
-            <a href="/Resume_Nov_24.pdf" target="_blank">
+            <a href="/Resume_DA.pdf" target="_blank">
               <button className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold px-6 py-3 rounded inline-flex items-center cursor-pointer transition ease-out duration-200">
                 <svg
                   class="fill-current w-4 h-4 mr-2"
