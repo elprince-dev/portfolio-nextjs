@@ -25,7 +25,7 @@ const HeroSection = () => {
           <p className="text-lg mt-4 mb-6">
             I&#39;m a passionate{" "}
             <span className="font-semibold text-teal-600">
-              Problem Solver
+              Software Engineer and Data Analyst
             </span>{" "}
             with experience in leadership and engineering and constant drive to
             learning. Let&#39;s connect and share experiences and ideas!
