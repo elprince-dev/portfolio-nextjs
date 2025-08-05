@@ -177,8 +177,10 @@ const ProjectsSection = () => {
                 <div className="flex flex-wrap gap-2 justify-center">
                   {project.techStack.map((tech) => (
                     <div key={tech} className="relative group/tech">
-                      <img
+                      <Image
                         src={`/${tech}.svg`}
+                        width={32}
+                        height={32}
                         className={`w-8 h-8 hover:scale-110 transition-transform cursor-pointer ${
                           tech === "nextjs" || tech === "sqlite"
                             ? "dark:bg-slate-100 rounded p-1"

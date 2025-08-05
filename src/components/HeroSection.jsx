@@ -83,7 +83,7 @@ const HeroSection = () => {
               transition={{ duration: 0.8, delay: 0.6 }}
               className="text-5xl lg:text-7xl font-bold mb-6"
             >
-              <span className="text-gray-900 dark:text-white">Hi, I'm </span>
+              <span className="text-gray-900 dark:text-white">Hi, I&apos;m </span>
               <span className="text-teal-600 dark:text-teal-400">
                 Mohammad
               </span>
@@ -120,7 +120,7 @@ const HeroSection = () => {
                 Software Engineer and Data Analyst
               </span>{" "}
               with expertise in full-stack development and data-driven solutions.
-              Let's build something amazing together!
+              Let&apos;s build something amazing together!
             </motion.p>
 
             {/* Action Buttons */}

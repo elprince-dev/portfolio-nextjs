@@ -65,7 +65,7 @@ const AboutSection = () => {
               </h2>
               <div className="space-y-4 text-gray-600 dark:text-gray-300 leading-relaxed">
                 <p>
-                  Hi, I'm Mohammad, a{" "}
+                  Hi, I&apos;m Mohammad, a{" "}
                   <span className="font-semibold text-teal-600 dark:text-teal-400">highly ambitious</span> and{" "}
                   <span className="font-semibold text-teal-600 dark:text-teal-400">self-motivated</span>{" "}
                   Software Engineer and Data Analyst based in Milton, ON.
@@ -82,7 +82,7 @@ const AboutSection = () => {
                   <span className="font-bold text-teal-600 dark:text-teal-400">
                     never stop growing
                   </span>{" "}
-                  and am always pushing the limits of what's possible.
+                  and am always pushing the limits of what&apos;s possible.
                 </p>
                 <div className="mt-6 p-4 bg-teal-50 dark:bg-teal-900/20 rounded-lg border-l-4 border-teal-500">
                   <p className="text-teal-800 dark:text-teal-200 font-medium">
