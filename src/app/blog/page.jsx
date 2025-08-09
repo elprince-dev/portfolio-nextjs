@@ -189,7 +189,7 @@ const BlogPage = () => {
         {filteredBlogs.length === 0 && (
           <div className="text-center py-16">
             <p className="text-gray-600 dark:text-gray-300 text-lg">
-              No blog posts found in the "{selectedCategory}" category.
+              No blog posts found in the &quot;{selectedCategory}&quot; category.
             </p>
           </div>
         )}
