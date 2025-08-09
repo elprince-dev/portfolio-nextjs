@@ -16,7 +16,7 @@ const Contact = () => {
       icon: HiMail,
       label: "Email",
       value: "mohammad-elprince@proton.me",
-      href: "mailto:elprince.dev@gmail.com"
+      href: "mailto:mohammad-elprince@proton.me"
     },
     {
       icon: HiLocationMarker,
