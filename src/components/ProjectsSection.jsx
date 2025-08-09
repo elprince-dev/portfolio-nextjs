@@ -41,11 +41,11 @@ const projects = [
     highlights: ["Dark/Light Theme", "Framer Motion", "EmailJS Integration", "SEO Optimized"]
   },
   {
-    name: "GPT-3 Landing Page",
+    name: "Modern Landing Page",
     image: "/gpt3.PNG",
     description:
-      "A landing page created to describe GPT-3 technology that provides a brief introduction about this modern AI technology. It is a static page that uses react with basic css styling.",
-    problem: "Need to create an engaging introduction to GPT-3 technology",
+      "A modern landing page showcasing advanced web technologies with clean design and smooth animations. Built with React and custom CSS styling for optimal performance.",
+    problem: "Need to create an engaging technology showcase website",
     solution: "Modern landing page with clean design and informative content",
     techStack: ["react", "javascript", "html", "css"],
     github: "https://github.com/mohamedmhussein/gpt3",
