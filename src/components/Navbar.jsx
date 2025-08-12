@@ -37,7 +37,7 @@ const Navbar = () => {
   const isHomePage = pathname === '/';
 
   return (
-    <header className="w-full mx-auto px-4 bg-white shadow fixed top-0 z-50  dark:border-b dark:bg-stone-900 dark:border-stone-600 sm:px-20">
+    <header className="w-full mx-auto px-4 bg-white shadow fixed top-0 z-50  dark:border-b dark:bg-stone-900 dark:border-stone-600 sm:px-6 lg:px-8">
       <div className="md:flex justify-between md:items-center">
         <div>
           <div className="flex justify-between items-center py-3">
