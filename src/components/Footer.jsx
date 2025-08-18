@@ -17,7 +17,7 @@ const Footer = () => {
             />
           </a>
           <a
-            href="https://www.linkedin.com/in/elprince93/"
+            href="https://www.linkedin.com/in/elprince-dev/"
             rel="noreferrer"
             target="_blank"
           >
