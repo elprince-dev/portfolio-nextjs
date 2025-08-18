@@ -142,7 +142,7 @@ const HeroSection = () => {
                 <span className="relative z-10">View My Work</span>
                 <div className="absolute inset-0 bg-gradient-to-r from-teal-700 to-blue-700 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               </Link>
-              <a href="/Resume_DA.pdf" target="_blank">
+              <a href="/Resume.pdf" target="_blank">
                 <button className="group px-8 py-4 bg-white dark:bg-stone-800 text-gray-800 dark:text-white font-semibold rounded-xl border-2 border-gray-300 dark:border-stone-600 hover:border-teal-500 dark:hover:border-teal-400 shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 flex items-center justify-center">
                   <svg
                     className="w-5 h-5 mr-2 group-hover:animate-bounce"
