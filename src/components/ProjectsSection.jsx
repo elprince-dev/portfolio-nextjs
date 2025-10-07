@@ -7,13 +7,45 @@ import { motion } from "framer-motion";
 
 const projects = [
   {
+    name: "YasMade",
+    image: "/yasmade.png",
+    description:
+      "YasMade is a beautifully crafted, full-stack e-commerce platform that seamlessly blends traditional Islamic art with modern web technology. This project showcases the intersection of faith, creativity, and technology through handcrafted embroidery products, educational workshops, and a vibrant community experience.",
+    problem:
+    "Artisans and creative educators needed a professional, scalable online platform to showcase handcrafted products, manage workshops, and connect with a global audience.",
+  solution:
+    "A modern e-commerce platform built with React, Vite, Tailwind CSS, and Supabase, featuring product catalog, cart, secure checkout, blog, workshop scheduling, and admin dashboard with role-based access.",
+  techStack: [
+    "javascript.svg",
+    "react.svg",
+    "vite.svg",
+    "tailwindcss.svg",
+    "supabase.png",
+  ],
+  github: "https://github.com/elprince-dev/YasMade-Demo",
+  link: "https://yasmade.net/",
+  metrics: {
+    duration: "3.5 months",
+    linesOfCode: "6,000+",
+    techCount: "5 techs"
+  },
+  highlights: [
+    "Full e-commerce",
+    "Workshops & events",
+    "Islamic design",
+    "Admin dashboard",
+    "Email integration",
+    "SEO ready"
+  ]
+  },
+  {
     name: "WriteWell",
     image: "/writewell.PNG",
     description:
       "WriteWell is a blog app for bloggers to share their thought through writing blogs, edit and delete them. The app is built with nextjs for the both frontend and the api and connected with MySQL database deployed that is on AWS RDS. Images are saved on AWS S3 and connected to the database through their URLs.",
     problem: "Bloggers needed a simple platform to create, edit, and manage their content",
     solution: "Full-stack blog application with AWS cloud integration",
-    techStack: ["javascript", "nextjs", "html", "scss", "mysql"],
+    techStack: ["javascript.svg", "nextjs.svg", "html.svg", "scss.svg", "mysql.svg"],
     github: "https://github.com/mohamedmhussein/writewell",
     link: "https://writewell.vercel.app/",
     metrics: {
@@ -30,7 +62,7 @@ const projects = [
       "A digital showcase of my professional journey, highlighting my skills and projects. The app is made with nextjs as the framework and styled with tailwindcss.",
     problem: "Need for a professional online presence to showcase skills and projects",
     solution: "Modern, responsive portfolio with dark mode and smooth animations",
-    techStack: ["javascript", "nextjs", "tailwindcss", "html"],
+    techStack: ["javascript.svg", "nextjs.svg", "tailwindcss.svg", "html.svg"],
     github: "https://github.com/mohamedmhussein/portfolio-nextjs",
     link: "https://mohammadelprince.vercel.app/",
     metrics: {
@@ -47,7 +79,7 @@ const projects = [
       "A modern landing page showcasing advanced web technologies with clean design and smooth animations. Built with React and custom CSS styling for optimal performance.",
     problem: "Need to create an engaging technology showcase website",
     solution: "Modern landing page with clean design and informative content",
-    techStack: ["react", "javascript", "html", "css"],
+    techStack: ["react.svg", "javascript.svg", "html.svg", "css.svg"],
     github: "https://github.com/mohamedmhussein/gpt3",
     link: "https://gpt3-intro.onrender.com/",
     metrics: {
@@ -64,7 +96,7 @@ const projects = [
       "A Python-based command-line application designed to help you manage your finances and track your expenses easily. This tool utilizes the SQLAlchemy library for database management and provides various features to handle your financial data effectively.",
     problem: "Personal finance management through command-line interface",
     solution: "Python CLI application with SQLAlchemy ORM for data persistence",
-    techStack: ["python", "sqlite"],
+    techStack: ["python.svg", "sqlite.svg"],
     github:
       "https://github.com/mohamedmhussein/python-p3-cli-project-budget-tracker",
     link: "",
@@ -79,7 +111,7 @@ const projects = [
 
 const ProjectsSection = () => {
   return (
-    <section id="projects" className="px-12">
+    <section id="projects" className="px-4 sm:px-6 lg:px-8">
       <h1 className="text-center font-bold text-4xl">
         Projects
         <hr className="w-6 h-1 mx-auto my-4 bg-teal-500 border-0 rounded"></hr>
@@ -178,7 +210,7 @@ const ProjectsSection = () => {
                   {project.techStack.map((tech) => (
                     <div key={tech} className="relative group/tech">
                       <Image
-                        src={`/${tech}.svg`}
+                        src={`/${tech}`}
                         width={32}
                         height={32}
                         className={`w-8 h-8 hover:scale-110 transition-transform cursor-pointer ${
@@ -189,7 +221,7 @@ const ProjectsSection = () => {
                         alt={tech}
                       />
                       <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-gray-900 text-white text-xs px-2 py-1 rounded opacity-0 group-hover/tech:opacity-100 transition-opacity capitalize whitespace-nowrap">
-                        {tech}
+                        {tech.replace('.svg', '').replace('.png', '')}
                       </div>
                     </div>
                   ))}

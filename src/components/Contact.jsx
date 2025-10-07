@@ -136,7 +136,7 @@ const Contact = () => {
                       <AiOutlineGithub className="w-6 h-6 text-gray-600 dark:text-gray-300 group-hover:text-teal-600 dark:group-hover:text-teal-400 transition-colors duration-300" />
                     </div>
                   </a>
-                  <a href="https://www.linkedin.com/in/elprince93/" target="_blank" className="group">
+                  <a href="https://www.linkedin.com/in/elprince-dev/" target="_blank" className="group">
                     <div className="p-3 bg-gray-100 dark:bg-stone-700 rounded-full group-hover:bg-teal-100 dark:group-hover:bg-teal-900 transition-colors duration-300">
                       <AiOutlineLinkedin className="w-6 h-6 text-gray-600 dark:text-gray-300 group-hover:text-teal-600 dark:group-hover:text-teal-400 transition-colors duration-300" />
                     </div>
