@@ -7,36 +7,36 @@ import { motion } from "framer-motion";
 
 const projects = [
   {
-    name: "YasMade",
+    name: "YasMade (AWS Cloud Version)",
     image: "/yasmade.png",
     description:
-      "YasMade is a beautifully crafted, full-stack e-commerce platform that seamlessly blends traditional Islamic art with modern web technology. This project showcases the intersection of faith, creativity, and technology through handcrafted embroidery products, educational workshops, and a vibrant community experience.",
+      "YasMade is a beautifully crafted, full-stack e-commerce platform that seamlessly blends traditional Islamic art with modern web technology — now powered by a fully managed AWS infrastructure using CDK, CloudFront, S3, SES, and a self-mutating CI/CD pipeline.",
     problem:
-    "Artisans and creative educators needed a professional, scalable online platform to showcase handcrafted products, manage workshops, and connect with a global audience.",
-  solution:
-    "A modern e-commerce platform built with React, Vite, Tailwind CSS, and Supabase, featuring product catalog, cart, secure checkout, blog, workshop scheduling, and admin dashboard with role-based access.",
-  techStack: [
-    "javascript.svg",
-    "react.svg",
-    "vite.svg",
-    "tailwindcss.svg",
-    "supabase.png",
-  ],
-  github: "https://github.com/elprince-dev/YasMade-Demo",
-  link: "https://yasmade.net/",
-  metrics: {
-    duration: "3.5 months",
-    linesOfCode: "6,000+",
-    techCount: "5 techs"
-  },
-  highlights: [
-    "Full e-commerce",
-    "Workshops & events",
-    "Islamic design",
-    "Admin dashboard",
-    "Email integration",
-    "SEO ready"
-  ]
+      "Artisans and creative educators needed a professional, scalable online platform to showcase handcrafted products, manage workshops, and connect with a global audience — with reliable cloud infrastructure and automated deployments.",
+    solution:
+      "A modern e-commerce platform built with React, Vite, Tailwind CSS, and Supabase, deployed on AWS with CDK infrastructure as code, CloudFront CDN, S3 static hosting, SES email, and a self-mutating CodePipeline CI/CD.",
+    techStack: [
+      "react.svg",
+      "vite.svg",
+      "tailwindcss.svg",
+      "supabase.png",
+      "aws.svg",
+    ],
+    github: "https://github.com/elprince-dev/YasMadeAWS",
+    link: "https://dev.yasmade.net",
+    metrics: {
+      duration: "4 months",
+      linesOfCode: "8,000+",
+      techCount: "11 techs"
+    },
+    highlights: [
+      "AWS CDK IaC",
+      "CloudFront CDN",
+      "CI/CD Pipeline",
+      "Full e-commerce",
+      "SES Email",
+      "Admin dashboard"
+    ]
   },
   {
     name: "WriteWell",
