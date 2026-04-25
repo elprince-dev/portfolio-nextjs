@@ -2,16 +2,10 @@ import "@/styles/globals.css";
 import Navbar from "@/components/Navbar";
 import { ThemeProvider } from "next-themes";
 import Footer from "@/components/Footer";
-import { Metadata } from "next";
-
-//  Static metadata
-// either Static metadata
-// Static metadata
-
 // Static metadata
 export const metadata = {
-  title: "Mohammad El Prince",
-  description: "My personal portfolio website",
+  title: "Mohammad El Prince - Software Development Engineer",
+  description: "Software Development Engineer with a data background, building production systems on AWS using TypeScript, Python, and cloud infrastructure. Experienced in serverless applications, multi-region platforms, and full-stack development.",
   icons: {
     icon: [
       { rel: "icon", url: "/favicon.ico" },

@@ -7,14 +7,40 @@ import { motion } from "framer-motion";
 
 const projects = [
   {
+    name: "Quality Management Platform",
+    image: "/coding.png",
+    description:
+      "A multi-region quality management web platform built for Amazon fulfillment centers. TypeScript monorepo powering a serverless API, CDN-based authentication, and analytics dashboards — achieving 100% test coverage across the stack.",
+    problem:
+      "Amazon fulfillment centers needed a scalable, multi-region platform to manage quality processes, track metrics, and provide real-time analytics dashboards for operations teams.",
+    solution:
+      "A TypeScript monorepo using React 19, tRPC, and AWS CDK to deliver a serverless API with CDN-based auth, analytics dashboards, and full infrastructure as code — deployed across multiple AWS regions.",
+    techStack: [],
+    github: "",
+    link: "",
+    metrics: {
+      duration: "Ongoing",
+      linesOfCode: "50,000+",
+      techCount: "15+ techs"
+    },
+    highlights: [
+      "Amazon Confidential",
+      "React 19 + tRPC",
+      "AWS CDK IaC",
+      "Serverless API",
+      "CDN-based Auth",
+      "100% Test Coverage"
+    ]
+  },
+  {
     name: "YasMade (AWS Cloud Version)",
     image: "/yasmade.png",
     description:
-      "YasMade is a beautifully crafted, full-stack e-commerce platform that seamlessly blends traditional Islamic art with modern web technology — now powered by a fully managed AWS infrastructure using CDK, CloudFront, S3, SES, and a self-mutating CI/CD pipeline.",
+      "A full-stack e-commerce platform built with React, Vite, and Supabase featuring Zustand state management, an admin dashboard for inventory and order management, and live customer order tracking — deployed on AWS with CDK, CloudFront, S3, SES, and a self-mutating CI/CD pipeline.",
     problem:
-      "Artisans and creative educators needed a professional, scalable online platform to showcase handcrafted products, manage workshops, and connect with a global audience — with reliable cloud infrastructure and automated deployments.",
+      "Artisans and creative educators needed a scalable online platform to showcase handcrafted products, manage inventory through an admin dashboard, and track live customer orders.",
     solution:
-      "A modern e-commerce platform built with React, Vite, Tailwind CSS, and Supabase, deployed on AWS with CDK infrastructure as code, CloudFront CDN, S3 static hosting, SES email, and a self-mutating CodePipeline CI/CD.",
+      "A modern e-commerce platform using React + Vite + Supabase with Zustand for state management, an admin dashboard, and live customer orders — deployed on AWS with CDK infrastructure as code and CloudFront CDN.",
     techStack: [
       "react.svg",
       "vite.svg",
@@ -23,7 +49,7 @@ const projects = [
       "aws.svg",
     ],
     github: "https://github.com/elprince-dev/YasMadeAWS",
-    link: "https://dev.yasmade.net",
+    link: "https://www.youtube.com/watch?v=v2QkcMPeY3w",
     metrics: {
       duration: "4 months",
       linesOfCode: "8,000+",
@@ -131,7 +157,17 @@ const ProjectsSection = () => {
             >
               {/* Project Image */}
               <div className="relative overflow-hidden">
-                <Link href={project.link || project.github} target="_blank">
+                {project.link || project.github ? (
+                  <Link href={project.link || project.github} target="_blank">
+                    <Image
+                      src={project.image}
+                      width={600}
+                      height={300}
+                      className="w-full h-56 object-cover object-center group-hover:scale-105 transition-transform duration-300"
+                      alt={project.name}
+                    />
+                  </Link>
+                ) : (
                   <Image
                     src={project.image}
                     width={600}
@@ -139,13 +175,15 @@ const ProjectsSection = () => {
                     className="w-full h-56 object-cover object-center group-hover:scale-105 transition-transform duration-300"
                     alt={project.name}
                   />
-                </Link>
+                )}
                 <div className="absolute top-4 right-4 flex space-x-2">
-                  <Link href={project.github} target="_blank">
-                    <div className="bg-white/90 dark:bg-stone-900/90 p-2 rounded-full hover:bg-white dark:hover:bg-stone-900 transition-colors">
-                      <BsGithub size={20} className="text-gray-700 dark:text-gray-300" />
-                    </div>
-                  </Link>
+                  {project.github && (
+                    <Link href={project.github} target="_blank">
+                      <div className="bg-white/90 dark:bg-stone-900/90 p-2 rounded-full hover:bg-white dark:hover:bg-stone-900 transition-colors">
+                        <BsGithub size={20} className="text-gray-700 dark:text-gray-300" />
+                      </div>
+                    </Link>
+                  )}
                   {project.link && (
                     <Link href={project.link} target="_blank">
                       <div className="bg-white/90 dark:bg-stone-900/90 p-2 rounded-full hover:bg-white dark:hover:bg-stone-900 transition-colors">

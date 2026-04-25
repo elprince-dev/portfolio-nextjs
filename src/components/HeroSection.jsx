@@ -8,9 +8,9 @@ import { motion } from "framer-motion";
 
 const HeroSection = () => {
   const highlights = [
+    { label: "Software Development Engineer", icon: "⚙️" },
     { label: "Full-Stack Developer", icon: "💻" },
-    { label: "Data Analyst", icon: "📊" },
-    { label: "Problem Solver", icon: "🧩" }
+    { label: "Cloud Engineer", icon: "☁️" }
   ];
 
   return (
@@ -46,14 +46,14 @@ const HeroSection = () => {
                 transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
                 className="absolute -top-4 -right-4 bg-teal-500 text-white p-3 rounded-full shadow-lg"
               >
-                💻
+                ⚙️
               </motion.div>
               <motion.div
                 animate={{ y: [10, -10, 10] }}
                 transition={{ duration: 3, repeat: Infinity, ease: "easeInOut", delay: 1.5 }}
                 className="absolute -bottom-4 -left-4 bg-blue-500 text-white p-3 rounded-full shadow-lg"
               >
-                📊
+                ☁️
               </motion.div>
             </div>
           </motion.div>
@@ -115,12 +115,12 @@ const HeroSection = () => {
               transition={{ duration: 0.6, delay: 1.0 }}
               className="text-xl text-gray-600 dark:text-gray-300 mb-8 max-w-2xl leading-relaxed"
             >
-              Passionate{" "}
+              A{" "}
               <span className="font-semibold text-teal-600 dark:text-teal-400">
-                Software Engineer and Data Analyst
+                Software Engineer with a data background
               </span>{" "}
-              with expertise in full-stack development and data-driven solutions.
-              Let&apos;s build something amazing together!
+              building production systems on AWS with TypeScript, Python, and
+              cloud infrastructure. Let&apos;s build something amazing together!
             </motion.p>
 
             {/* Action Buttons */}
@@ -142,7 +142,7 @@ const HeroSection = () => {
                 <span className="relative z-10">View My Work</span>
                 <div className="absolute inset-0 bg-gradient-to-r from-teal-700 to-blue-700 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               </Link>
-              <a href="/Resume.pdf" target="_blank">
+              <a href="/Resume - External.pdf" target="_blank">
                 <button className="group px-8 py-4 bg-white dark:bg-stone-800 text-gray-800 dark:text-white font-semibold rounded-xl border-2 border-gray-300 dark:border-stone-600 hover:border-teal-500 dark:hover:border-teal-400 shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 flex items-center justify-center">
                   <svg
                     className="w-5 h-5 mr-2 group-hover:animate-bounce"
@@ -171,7 +171,7 @@ const HeroSection = () => {
                   />
                 </div>
               </a>
-              <a href="https://www.linkedin.com/in/elprince93/" target="_blank" className="group">
+              <a href="https://www.linkedin.com/in/elprince-dev/" target="_blank" className="group">
                 <div className="p-3 bg-white dark:bg-stone-800 rounded-full shadow-lg border border-gray-200 dark:border-stone-700 group-hover:border-teal-500 dark:group-hover:border-teal-400 transform group-hover:-translate-y-1 transition-all duration-300">
                   <AiOutlineLinkedin
                     className="text-gray-700 dark:text-gray-300 group-hover:text-teal-600 dark:group-hover:text-teal-400 transition-colors duration-300"

@@ -1,19 +1,19 @@
 "use client";
-import Image from "next/image";
 import React from "react";
 import { motion } from "framer-motion";
 
 const AboutSection = () => {
   const skillCategories = {
-    "Frontend": ["HTML", "CSS", "JavaScript", "React", "Next.js", "Tailwind CSS", "Sass"],
-    "Backend": ["Python", "Flask", "FastApi", "SQL"],
-    "Tools": ["Git", "GitHub", "VS Code"]
+    "Languages": ["TypeScript", "Python", "JavaScript", "HTML/CSS", "SQL"],
+    "Frameworks": ["React 19", "tRPC", "Node.js", "Vitest"],
+    "Cloud & Infrastructure": ["AWS Lambda", "CDK", "DynamoDB", "S3", "CloudFront", "EventBridge", "SES", "SNS", "CloudWatch", "RUM", "WAF", "Route 53", "IaC"],
+    "Tools": ["Git", "Nx", "Vite", "ESLint", "Prettier"]
   };
 
   const stats = [
     { label: "Years Experience", value: "2+" },
-    { label: "Projects Completed", value: "10+" },
-    { label: "Technologies", value: "14+" }
+    { label: "Projects Completed", value: "15+" },
+    { label: "Technologies", value: "20+" }
   ];
 
   return (
@@ -30,7 +30,7 @@ const AboutSection = () => {
             About Me
           </h1>
           <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-            Passionate Software Engineer & Data Analyst crafting digital solutions
+            Software Development Engineer building production systems on AWS
           </p>
         </motion.div>
 
@@ -50,46 +50,45 @@ const AboutSection = () => {
           ))}
         </motion.div>
 
-        <div className="grid lg:grid-cols-2 gap-16 items-start">
+        <div className="grid lg:grid-cols-2 gap-16 items-stretch">
           {/* About Content */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.3 }}
-            className="space-y-6"
+            className="flex"
           >
-            <div className="bg-white dark:bg-stone-800 p-8 rounded-2xl shadow-lg border border-gray-200 dark:border-stone-700">
+            <div className="bg-white dark:bg-stone-800 p-8 rounded-2xl shadow-lg border border-gray-200 dark:border-stone-700 flex flex-col w-full">
               <h2 className="text-3xl font-bold mb-6 text-gray-900 dark:text-white">
                 Get to know me!
               </h2>
               <div className="space-y-4 text-gray-600 dark:text-gray-300 leading-relaxed">
                 <p>
                   Hi, I&apos;m Mohammad, a{" "}
-                  <span className="font-semibold text-teal-600 dark:text-teal-400">highly ambitious</span> and{" "}
-                  <span className="font-semibold text-teal-600 dark:text-teal-400">self-motivated</span>{" "}
-                  Software Engineer and Data Analyst based in Milton, ON.
+                  <span className="font-semibold text-teal-600 dark:text-teal-400">Software Development Engineer</span>{" "}
+                  with a data background, building production systems on{" "}
+                  <span className="font-semibold text-teal-600 dark:text-teal-400">AWS</span>.
+                  I specialize in TypeScript, Python, and cloud infrastructure.
                 </p>
                 <p>
-                  I learned Python, JavaScript and SQL at{" "}
-                  <span className="font-semibold text-gray-900 dark:text-white">Flatiron School</span> in 2023
-                  and have been coding since then. I expanded my expertise with Next.js and FastAPI
-                  to build full-stack applications.
+                  At{" "}
+                  <span className="font-semibold text-gray-900 dark:text-white">Amazon</span>,
+                  I build serverless applications and a multi-region web platform serving
+                  fulfillment centers. My work spans React 19 frontends, tRPC APIs, and
+                  AWS CDK infrastructure across 15+ production services.
                 </p>
                 <p>
-                  Beyond coding, I enjoy tennis, chess, table tennis, and continuous self-development.
-                  I believe in{" "}
-                  <span className="font-bold text-teal-600 dark:text-teal-400">
-                    never stop growing
-                  </span>{" "}
-                  and am always pushing the limits of what&apos;s possible.
+                  I studied at{" "}
+                  <span className="font-semibold text-gray-900 dark:text-white">Flatiron School</span>{" "}
+                  (2023) and hold a Master of Engineering from the{" "}
+                  <span className="font-semibold text-gray-900 dark:text-white">University of Guelph</span>.
+                  I&apos;m an{" "}
+                  <span className="font-semibold text-teal-600 dark:text-teal-400">AWS Solutions Architect Associate</span>{" "}
+                  and{" "}
+                  <span className="font-semibold text-teal-600 dark:text-teal-400">AWS Cloud Practitioner</span>{" "}
+                  certified.
                 </p>
-                <div className="mt-6 p-4 bg-teal-50 dark:bg-teal-900/20 rounded-lg border-l-4 border-teal-500">
-                  <p className="text-teal-800 dark:text-teal-200 font-medium">
-                    🚀 Currently seeking new opportunities to work with passionate teams
-                    and contribute to innovative projects.
-                  </p>
-                </div>
               </div>
             </div>
           </motion.div>
@@ -100,9 +99,9 @@ const AboutSection = () => {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.4 }}
-            className="space-y-6"
+            className="flex"
           >
-            <div className="bg-white dark:bg-stone-800 p-8 rounded-2xl shadow-lg border border-gray-200 dark:border-stone-700">
+            <div className="bg-white dark:bg-stone-800 p-8 rounded-2xl shadow-lg border border-gray-200 dark:border-stone-700 flex flex-col w-full">
               <h2 className="text-3xl font-bold mb-6 text-gray-900 dark:text-white">
                 Technical Skills
               </h2>
