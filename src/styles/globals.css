@@ -2,4 +2,84 @@
 @tailwind components;
 @tailwind utilities;
 
+/**
+ * Design token CSS custom properties — the runtime source of truth for the
+ * color palette. The Tailwind theme (tailwind.config.ts) maps semantic color
+ * utilities onto these variables, and next-themes toggles the `.dark` class on
+ * the root element to switch palettes (Req 11.2, 11.3).
+ *
+ * Light/dark values mirror `lightPalette` / `darkPalette` in
+ * `src/content/tokens.ts` and are chosen to meet WCAG AA contrast (validated by
+ * the token-audit task).
+ */
+:root {
+  /* Light Theme palette */
+  --color-background: #ffffff;
+  --color-surface: #f8fafc;
+  --color-surface-elevated: #ffffff;
+  --color-border: #e2e8f0;
+  --color-text-primary: #0f172a;
+  --color-text-secondary: #334155;
+  --color-text-muted: #475569;
+  --color-accent: #4f46e5;
+  --color-accent-foreground: #ffffff;
 
+  /* Gradients */
+  --gradient-brand: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #ec4899 100%);
+  --gradient-subtle: linear-gradient(180deg, rgba(99, 102, 241, 0.08) 0%, rgba(139, 92, 246, 0) 100%);
+
+  /* Large section spacing value (Req 11.6) */
+  --spacing-section: 8rem;
+
+  /* Glass surface tunables */
+  --surface-glass-bg: rgba(255, 255, 255, 0.7);
+  --surface-glass-border: rgba(15, 23, 42, 0.08);
+}
+
+.dark {
+  /* Dark Theme palette */
+  --color-background: #0b1120;
+  --color-surface: #111827;
+  --color-surface-elevated: #1e293b;
+  --color-border: #334155;
+  --color-text-primary: #f8fafc;
+  --color-text-secondary: #cbd5e1;
+  --color-text-muted: #94a3b8;
+  --color-accent: #818cf8;
+  --color-accent-foreground: #0b1120;
+
+  /* Glass surface tunables (dark) */
+  --surface-glass-bg: rgba(17, 24, 39, 0.55);
+  --surface-glass-border: rgba(255, 255, 255, 0.12);
+}
+
+@layer base {
+  body {
+    background-color: var(--color-background);
+    color: var(--color-text-primary);
+  }
+}
+
+@layer components {
+  /* Glassmorphism surface primitive (Req 11.1, 9.3). */
+  .surface-glass {
+    background: var(--surface-glass-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--surface-glass-border);
+  }
+
+  /* Elevated surface primitive (Req 9.3, 11.1). */
+  .surface-elevated {
+    background-color: var(--color-surface-elevated);
+    border: 1px solid var(--color-border);
+    box-shadow: 0 1px 2px rgba(15, 23, 42, 0.06),
+      0 12px 32px -8px rgba(15, 23, 42, 0.18);
+  }
+
+  /* Large section spacing utility separating primary sections (Req 11.6). */
+  .section-spacing {
+    padding-top: var(--spacing-section);
+    padding-bottom: var(--spacing-section);
+  }
+}

@@ -1,0 +1,40 @@
+name: Lighthouse CI
+
+# Final verification (Task 11.2): asserts the external performance,
+# accessibility, and SEO budgets (Requirements 13.1, 13.2, 13.3, 13.5, 14.1,
+# 15.3, 15.5) against a production build. Thresholds live in lighthouserc.js.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  lighthouse:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Type check
+        run: npm run typecheck
+
+      - name: Build
+        run: npm run build
+
+      - name: Lighthouse CI (performance, a11y, SEO, web vitals)
+        run: npm run lighthouse
+
+      - name: Validate sitemap.xml and robots.txt content
+        run: |
+          npm run start &
+          npx --yes wait-on http://localhost:3000 --timeout 60000
+          npm run check:seo-routes

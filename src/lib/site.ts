@@ -1,0 +1,28 @@
+/**
+ * Centralized site metadata used by the layout (SEO/Open Graph), the structured
+ * data, the sitemap, and robots (Req 13.4, 15.1–15.4).
+ *
+ * The canonical site URL can be overridden at build time via
+ * `NEXT_PUBLIC_SITE_URL`; the default is a sensible production placeholder so
+ * the sitemap and robots emit absolute URLs.
+ */
+
+export const siteUrl = (
+  process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.elprince.dev"
+).replace(/\/$/, "");
+
+export const siteConfig = {
+  name: "Mohammad El Prince",
+  title: "Mohammad El Prince — AI & Software Engineer",
+  description:
+    "AI Engineer and Software Engineer building production AI applications and scalable, type-safe systems on AWS. Retrieval-augmented and agentic systems, serverless platforms, and full-stack engineering.",
+  url: siteUrl,
+  /** Open Graph / Twitter Card preview image (Req 15.2). */
+  previewImage: "/myPhoto.png",
+  previewImageWidth: 512,
+  previewImageHeight: 512,
+  jobTitle: "AI & Software Engineer",
+  linkedinUrl: "https://www.linkedin.com/in/elprince-dev/",
+  githubUrl: "https://github.com/elprince-dev",
+  twitterHandle: "@elprince_dev",
+} as const;
