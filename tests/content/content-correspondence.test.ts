@@ -35,10 +35,10 @@ const publicDir = resolve(repoRoot, "public");
 // ---------------------------------------------------------------------------
 
 describe("credibility metric values match preserved content (Req 2.4)", () => {
-  // Preserved quantified values from the resume (15+ serverless apps, 100% test
-  // coverage) and the existing AboutSection stats (2+ years, 15+ projects, 20+
-  // technologies).
-  const preservedMetricValues = new Set(["2+", "15+", "20+", "100%"]);
+  // Preserved quantified values from the resume (15+ serverless apps, 8+
+  // locations served by the QMP rollout) and the existing AboutSection stats
+  // (2+ years, 15+ projects, 20+ technologies).
+  const preservedMetricValues = new Set(["2+", "8+", "15+", "20+"]);
 
   it("every displayed metric value corresponds to a preserved value", () => {
     for (const metric of credibility.metrics) {
@@ -46,10 +46,10 @@ describe("credibility metric values match preserved content (Req 2.4)", () => {
     }
   });
 
-  it("includes the headline preserved metrics (15+ and 100%)", () => {
+  it("includes the headline preserved metrics (15+ and 8+)", () => {
     const values = credibility.metrics.map((metric) => metric.value);
     expect(values).toContain("15+");
-    expect(values).toContain("100%");
+    expect(values).toContain("8+");
   });
 });
 

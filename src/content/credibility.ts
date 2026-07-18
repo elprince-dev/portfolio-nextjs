@@ -8,8 +8,8 @@
  *    list (Req 2.2): AWS Solutions Architect Associate and AWS Cloud Practitioner.
  *  - At least three quantified metrics, each with a numeric value and a
  *    descriptive label, drawn from preserved content (Req 2.3, 2.4): 15+
- *    serverless applications, 100% test coverage, 2+ years of experience, and
- *    20+ technologies.
+ *    serverless applications, 8+ locations served, 2+ years of experience,
+ *    and 20+ technologies.
  */
 
 import type { CredibilityContent } from "@/content/types";
@@ -24,7 +24,7 @@ export const credibility: CredibilityContent = {
   ],
   metrics: [
     { value: "15+", label: "Serverless applications shipped" },
-    { value: "100%", label: "Test coverage maintained" },
+    { value: "8+", label: "Locations served" },
     { value: "2+", label: "Years of experience" },
     { value: "20+", label: "Technologies" },
   ],

@@ -22,6 +22,7 @@ export const experienceStages: ExperienceStage[] = [
     startDate: "2019-01-01",
     description:
       "Course-based Master of Engineering in Mechanical Engineering in Guelph, ON.",
+    skills: ["Mechanical Engineering", "Data Analysis", "Research"],
   },
   {
     title: "Full Stack Web Development",
@@ -30,6 +31,7 @@ export const experienceStages: ExperienceStage[] = [
     startDate: "2023-02-01",
     description:
       "Full Stack Web Development online program in Python and JavaScript.",
+    skills: ["Python", "JavaScript", "React", "Full-Stack"],
   },
   {
     title: "Operations",
@@ -38,6 +40,7 @@ export const experienceStages: ExperienceStage[] = [
     startDate: "2021-05-01",
     description:
       "Operations roles across multiple Ontario locations (Hamilton, St. Thomas, London, Mississauga) before transitioning to software development.",
+    skills: ["Operations", "Leadership", "Process Improvement"],
   },
   {
     title: "Data Analyst — Software Development Focus",
@@ -46,6 +49,7 @@ export const experienceStages: ExperienceStage[] = [
     startDate: "2025-02-01",
     description:
       "Building serverless applications and a multi-region quality management platform (React 19, TypeScript, tRPC, AWS CDK) serving managers at North American fulfillment centers.",
+    skills: ["React 19", "TypeScript", "tRPC", "AWS CDK"],
   },
   {
     title: "AI Engineering Focus",
@@ -54,6 +58,7 @@ export const experienceStages: ExperienceStage[] = [
     startDate: "2025-06-01",
     description:
       "Extending serverless and backend expertise into AI engineering — RAG, LLM applications, agents, retrieval pipelines, tool calling, and evaluation.",
+    skills: ["RAG", "LLM Agents", "Retrieval Pipelines", "Evaluation"],
   },
 ];
 

@@ -6,14 +6,15 @@ import {
   type SectionId,
 } from "@/lib/sections";
 
-// The documented canonical sequence from Requirement 4.1.
+// The documented canonical sequence from Requirement 4.1 (Experience moved
+// directly after the About/credibility section in the awrs-style redesign).
 const CANONICAL_ID_ORDER: SectionId[] = [
   "hero",
   "credibility",
+  "experience",
   "projects",
   "ai-engineering",
   "engineering-excellence",
-  "experience",
   "skills",
   "certifications",
   "contact",

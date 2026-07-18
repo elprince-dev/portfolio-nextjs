@@ -63,10 +63,10 @@ export function Navbar() {
         onClick={() => navigateToSection(item.id)}
         aria-current={isActive ? "page" : undefined}
         data-active={isActive ? "true" : "false"}
-        className={`block w-full cursor-pointer text-center font-medium transition-colors lg:inline-block lg:w-auto ${
+        className={`block w-full cursor-pointer rounded-full px-4 py-1.5 text-center text-sm font-medium transition-colors md:inline-block md:w-auto ${
           isActive
-            ? "text-[var(--color-accent)]"
-            : "text-[var(--color-text-primary)] hover:text-[var(--color-accent)]"
+            ? "bg-[var(--color-surface-elevated)] text-[var(--color-text-primary)] shadow-[0_0_14px_var(--color-rose-glow)]"
+            : "text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)]"
         }`}
       >
         {item.navLabel}
@@ -83,47 +83,50 @@ export function Navbar() {
           ? "Switch to light theme"
           : "Switch to dark theme"
       }
-      className="rounded-xl bg-[var(--color-surface-elevated)] p-2"
+      className="rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] p-2 text-[var(--color-text-secondary)] transition-colors hover:text-[var(--color-text-primary)]"
     >
       {currentTheme === "dark" ? (
-        <RiSunLine size={20} aria-hidden="true" />
+        <RiSunLine size={18} aria-hidden="true" />
       ) : (
-        <RiMoonFill size={20} aria-hidden="true" />
+        <RiMoonFill size={18} aria-hidden="true" />
       )}
     </button>
   );
 
   return (
-    <header className="fixed top-0 z-50 w-full bg-[var(--color-surface)] px-4 shadow backdrop-blur-md sm:px-6 lg:px-8">
-      <div className="mx-auto flex max-w-7xl items-center justify-between py-3">
+    <header className="fixed inset-x-0 top-0 z-50 px-4 pt-3 sm:px-6">
+      <div className="relative mx-auto flex max-w-7xl items-center justify-between">
         <button
           type="button"
           onClick={() => navigateToSection("hero")}
-          className="cursor-pointer text-2xl font-bold text-[var(--color-text-primary)]"
+          className="cursor-pointer font-mono text-sm font-semibold tracking-widest text-[var(--color-text-primary)]"
         >
-          Mohammad El Prince
+          MEP
         </button>
 
-        {/* Desktop navigation (Req 4.3). */}
+        {/* Desktop navigation: floating centered pill (Req 4.3). */}
         <nav
           aria-label="Primary"
-          className="hidden items-center gap-6 md:flex"
+          className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-1 rounded-full border border-[var(--color-border)] bg-[var(--color-surface)]/90 px-1.5 py-1.5 shadow-lg backdrop-blur-md md:flex"
         >
           {navItems.map(renderLink)}
-          {themeToggleButton}
         </nav>
 
-        {/* Mobile menu toggle (Req 4.6). */}
-        <button
-          type="button"
-          className="md:hidden"
-          aria-expanded={menuOpen}
-          aria-controls="mobile-menu"
-          aria-label={menuOpen ? "Close menu" : "Open menu"}
-          onClick={() => setMenuOpen((open) => !open)}
-        >
-          {menuOpen ? <IoMdClose size={30} /> : <IoMdMenu size={30} />}
-        </button>
+        <div className="flex items-center gap-2">
+          {themeToggleButton}
+
+          {/* Mobile menu toggle (Req 4.6). */}
+          <button
+            type="button"
+            className="rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] p-1.5 md:hidden"
+            aria-expanded={menuOpen}
+            aria-controls="mobile-menu"
+            aria-label={menuOpen ? "Close menu" : "Open menu"}
+            onClick={() => setMenuOpen((open) => !open)}
+          >
+            {menuOpen ? <IoMdClose size={22} /> : <IoMdMenu size={22} />}
+          </button>
+        </div>
       </div>
 
       {/* Mobile collapsible menu exposing the same link set (Req 4.6). */}
@@ -131,10 +134,9 @@ export function Navbar() {
         <nav
           id="mobile-menu"
           aria-label="Mobile"
-          className="flex flex-col items-center gap-6 pb-4 md:hidden"
+          className="mx-auto mt-2 flex max-w-7xl flex-col items-center gap-1 rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)]/95 p-3 shadow-lg backdrop-blur-md md:hidden"
         >
           {navItems.map(renderLink)}
-          {themeToggleButton}
         </nav>
       )}
     </header>

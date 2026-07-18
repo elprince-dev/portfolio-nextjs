@@ -85,6 +85,8 @@ export interface ExperienceStage {
   /** ISO date; used for chronological sort (Req 7.1). */
   startDate: string;
   description?: string;
+  /** Short skill/tech tags shown under the description. */
+  skills?: string[];
 }
 
 // ---------------------------------------------------------------------------

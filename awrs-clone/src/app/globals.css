@@ -1,0 +1,141 @@
+@import "tailwindcss";
+
+/* Dark mode driven by a `.dark` class on <html> (next-themes, class strategy). */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ------------------------------------------------------------------ */
+/* Design tokens — ported 1:1 from the awrs.me compiled stylesheet.    */
+/* Light theme is the default on :root; .dark overrides below.         */
+/* ------------------------------------------------------------------ */
+:root {
+  --color-bg: #ffffff;
+  --color-bg-secondary: #f5f5f7;
+  --color-bg-tertiary: #eeeef2;
+  --color-text: #1a1a2e;
+  --color-text-secondary: #4b5563;
+  --color-text-tertiary: #6b7280;
+  --color-card: #ffffff;
+  --color-card-hover: #f9f9fb;
+  --color-border: #e5e7eb;
+  --color-navbar: #ffffffd9;
+  --color-primary-glow: #d4547e40;
+
+  /* Brand palette (shared across themes) */
+  --color-primary: #d4547e;
+  --color-primary-light: #e07a9c;
+  --color-primary-dark: #a83d62;
+  --color-primary-50: #fdf0f4;
+  --color-primary-100: #f9d8e3;
+  --color-primary-200: #f0adc3;
+  --color-accent: #00bb7f;
+  --color-achievement: #f59e0b;
+
+  /* Font stacks — next/font injects --font-inter/-playfair/-plex-arabic on <html>. */
+  --font-sans: var(--font-inter), system-ui, sans-serif;
+  --font-serif: var(--font-playfair), Georgia, "Times New Roman", serif;
+  --font-arabic: var(--font-plex-arabic), "IBM Plex Sans Arabic", sans-serif;
+}
+
+.dark {
+  --color-bg: #000000;
+  --color-bg-secondary: #080808;
+  --color-bg-tertiary: #0f0f0f;
+  --color-text: #f0f0f0;
+  --color-text-secondary: #a1a1aa;
+  --color-text-tertiary: #71717a;
+  --color-card: #070707;
+  --color-card-hover: #191919;
+  --color-border: #242424;
+  --color-navbar: #0a0a0aeb;
+  --color-primary-glow: #d4547e4d;
+  --color-accent: #00d294;
+}
+
+/* Expose tokens to Tailwind utilities (bg-bg, text-primary, border-border, …). */
+@theme inline {
+  --color-bg: var(--color-bg);
+  --color-bg-secondary: var(--color-bg-secondary);
+  --color-bg-tertiary: var(--color-bg-tertiary);
+  --color-text: var(--color-text);
+  --color-text-secondary: var(--color-text-secondary);
+  --color-text-tertiary: var(--color-text-tertiary);
+  --color-card: var(--color-card);
+  --color-card-hover: var(--color-card-hover);
+  --color-border: var(--color-border);
+  --color-navbar: var(--color-navbar);
+  --color-primary: var(--color-primary);
+  --color-primary-light: var(--color-primary-light);
+  --color-primary-dark: var(--color-primary-dark);
+  --color-primary-50: var(--color-primary-50);
+  --color-primary-100: var(--color-primary-100);
+  --color-primary-200: var(--color-primary-200);
+  --color-primary-glow: var(--color-primary-glow);
+  --color-accent: var(--color-accent);
+  --color-achievement: var(--color-achievement);
+
+  --font-sans: var(--font-sans);
+  --font-serif: var(--font-serif);
+  --font-arabic: var(--font-arabic);
+
+  --radius-md: 0.375rem;
+  --radius-lg: 0.5rem;
+  --radius-2xl: 1rem;
+  --radius-3xl: 1.5rem;
+}
+
+* {
+  border-color: var(--color-border);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+[dir="rtl"] body {
+  font-family: var(--font-arabic);
+}
+
+/* Lenis smooth-scroll baseline */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+/* Animated gradient text used in the hero headline */
+.text-gradient {
+  background: linear-gradient(
+    120deg,
+    var(--color-primary) 0%,
+    var(--color-primary-light) 50%,
+    var(--color-accent) 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Reveal-on-scroll initial state (GSAP animates these in) */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  will-change: opacity, transform;
+}
+
+::selection {
+  background: var(--color-primary);
+  color: #fff;
+}

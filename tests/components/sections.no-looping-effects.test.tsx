@@ -19,6 +19,11 @@ import { ContactSection } from "@/components/ContactSection";
  * utilities, particle/neon/cyberpunk markers). The entrance reveal used by
  * `MotionReveal` is a one-shot animation and is not a continuous loop, so it is
  * not flagged here.
+ *
+ * Sanctioned exceptions (explicitly requested in the awrs-style redesign, and
+ * disabled under prefers-reduced-motion):
+ * - The hero marquee ribbons (`.marquee-track`).
+ * - The About-section orbiting stat dots (`.orbit-dot`).
  */
 
 afterEach(cleanup);

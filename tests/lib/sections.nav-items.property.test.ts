@@ -69,12 +69,12 @@ describe("Property 7: Navigation exposes a consistent link set", () => {
     );
   });
 
-  it("the canonical registry exposes exactly Projects, AI Engineering, Experience, Skills, and Contact", () => {
+  it("the canonical registry exposes exactly Experience, Projects, AI Engineering, Skills, and Contact", () => {
     const navIds = getNavItems(sectionRegistry).map((def) => def.id);
     expect(navIds).toEqual([
+      "experience",
       "projects",
       "ai-engineering",
-      "experience",
       "skills",
       "contact",
     ]);

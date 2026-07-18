@@ -103,16 +103,41 @@ export const metadata: Metadata = {
   },
 };
 
+/**
+ * Google Fonts stylesheet for the editorial design language: Playfair Display
+ * for the large serif display type, Inter for body copy, and JetBrains Mono
+ * for the small mono accents (eyebrows, tickers, metadata). Loaded as a
+ * runtime stylesheet (rather than next/font) so builds succeed in offline
+ * environments; the CSS variables consumed by Tailwind's `fontFamily` theme
+ * (--font-sans/--font-serif/--font-mono) are defined in globals.css with
+ * system fallbacks.
+ */
+const GOOGLE_FONTS_HREF =
+  "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@700;900&family=JetBrains+Mono:wght@400;500&display=swap";
+
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className="dark:bg-stone-900">
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link
+          rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossOrigin="anonymous"
+        />
+        <link rel="stylesheet" href={GOOGLE_FONTS_HREF} />
+      </head>
+      <body className="bg-background font-sans text-text-primary">
         <script
           type="application/ld+json"
           // Person structured data (Req 15.4).
           dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
         />
-        <ThemeProvider enableSystem={true} attribute="class">
+        <ThemeProvider
+          enableSystem={true}
+          attribute="class"
+          defaultTheme="dark"
+        >
           <Navbar />
           {children}
           <Footer />

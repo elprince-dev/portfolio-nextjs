@@ -15,42 +15,90 @@
 :root {
   /* Light Theme palette */
   --color-background: #ffffff;
-  --color-surface: #f8fafc;
+  --color-surface: #f5f5f7;
   --color-surface-elevated: #ffffff;
-  --color-border: #e2e8f0;
-  --color-text-primary: #0f172a;
-  --color-text-secondary: #334155;
-  --color-text-muted: #475569;
-  --color-accent: #4f46e5;
+  --color-border: #e5e7eb;
+  --color-text-primary: #1a1a2e;
+  --color-text-secondary: #4b5563;
+  --color-text-muted: #6b7280;
+  --color-accent: #a83d62;
   --color-accent-foreground: #ffffff;
 
+  /* Font stacks (Google Fonts loaded via stylesheet in the root layout). */
+  --font-sans: "Inter", system-ui, -apple-system, sans-serif;
+  --font-serif: "Playfair Display", Georgia, "Times New Roman", serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", monospace;
+
+  /* Display rose used decoratively (marquee, gradients, glows). Interactive
+     elements use --color-accent, which is contrast-audited. */
+  --color-rose: #d4547e;
+  --color-rose-glow: rgba(212, 84, 126, 0.25);
+  --color-mint: #00bb7f;
+
   /* Gradients */
-  --gradient-brand: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #ec4899 100%);
-  --gradient-subtle: linear-gradient(180deg, rgba(99, 102, 241, 0.08) 0%, rgba(139, 92, 246, 0) 100%);
+  --gradient-brand: linear-gradient(120deg, #d4547e 0%, #e07a9c 50%, #00d294 100%);
+  --gradient-subtle: linear-gradient(180deg, rgba(212, 84, 126, 0.08) 0%, rgba(212, 84, 126, 0) 100%);
 
   /* Large section spacing value (Req 11.6) */
   --spacing-section: 8rem;
 
   /* Glass surface tunables */
   --surface-glass-bg: rgba(255, 255, 255, 0.7);
-  --surface-glass-border: rgba(15, 23, 42, 0.08);
+  --surface-glass-border: rgba(26, 26, 46, 0.08);
+
+  /* About-section widget surfaces (clock + globe), light theme. */
+  --widget-bezel-hi: #e9e9ee;
+  --widget-bezel-mid: #c9c9d1;
+  --widget-bezel-lo: #a3a3ad;
+  --widget-ring: #dcdce2;
+  --widget-face: #f2f2f5;
+  --widget-face-stroke: #c9c9d2;
+  --widget-inset: #e6e6eb;
+  --moon-unlit: #cfcfd6;
+  --moon-lit: #5b5b66;
+  --globe-hi: #eaeaee;
+  --globe-mid: #d5d5db;
+  --globe-lo: #bcbcc4;
+  --globe-dot: #c13b68;
+  --globe-halo: rgba(0, 0, 0, 0.06);
+  --globe-rim: rgba(0, 0, 0, 0.1);
 }
 
 .dark {
   /* Dark Theme palette */
-  --color-background: #0b1120;
-  --color-surface: #111827;
-  --color-surface-elevated: #1e293b;
-  --color-border: #334155;
-  --color-text-primary: #f8fafc;
-  --color-text-secondary: #cbd5e1;
-  --color-text-muted: #94a3b8;
-  --color-accent: #818cf8;
-  --color-accent-foreground: #0b1120;
+  --color-background: #000000;
+  --color-surface: #0a0a0a;
+  --color-surface-elevated: #141414;
+  --color-border: #242424;
+  --color-text-primary: #f0f0f0;
+  --color-text-secondary: #a1a1aa;
+  --color-text-muted: #7c7c85;
+  --color-accent: #d4547e;
+  --color-accent-foreground: #0a0a0a;
+
+  --color-rose-glow: rgba(212, 84, 126, 0.3);
+  --color-mint: #00d294;
 
   /* Glass surface tunables (dark) */
-  --surface-glass-bg: rgba(17, 24, 39, 0.55);
+  --surface-glass-bg: rgba(10, 10, 10, 0.6);
   --surface-glass-border: rgba(255, 255, 255, 0.12);
+
+  /* About-section widget surfaces (clock + globe), dark theme. */
+  --widget-bezel-hi: #55555e;
+  --widget-bezel-mid: #2b2b31;
+  --widget-bezel-lo: #141417;
+  --widget-ring: #0c0c0f;
+  --widget-face: #08080a;
+  --widget-face-stroke: #2e2e34;
+  --widget-inset: #101014;
+  --moon-unlit: #26262c;
+  --moon-lit: #d8d8de;
+  --globe-hi: #232327;
+  --globe-mid: #101013;
+  --globe-lo: #050506;
+  --globe-dot: #e07a9c;
+  --globe-halo: rgba(255, 255, 255, 0.09);
+  --globe-rim: rgba(255, 255, 255, 0.16);
 }
 
 @layer base {
@@ -82,4 +130,241 @@
     padding-top: var(--spacing-section);
     padding-bottom: var(--spacing-section);
   }
+
+  /* Gradient display text (hero headline accents). */
+  .text-gradient {
+    background: var(--gradient-brand);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  /* Rose gradient fill for the hero display name (decorative; the section's
+     supporting copy carries the accessible text contrast). */
+  .text-gradient-rose {
+    background: linear-gradient(100deg, #c13b68 0%, #d4547e 40%, #f0adc3 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  /*
+   * Marquee ticker band. `.marquee` clips a track containing two identical
+   * aria-hidden-duplicated groups; the track translates by -50% and loops,
+   * producing a seamless scroll. `[data-direction="reverse"]` flips it.
+   * Motion is disabled entirely under prefers-reduced-motion.
+   */
+  .marquee {
+    display: flex;
+    overflow: hidden;
+    user-select: none;
+  }
+
+  .marquee-track {
+    display: flex;
+    flex-shrink: 0;
+    min-width: 100%;
+    align-items: center;
+    animation: marquee-scroll var(--marquee-duration, 30s) linear infinite;
+  }
+
+  .marquee[data-direction="reverse"] .marquee-track {
+    animation-direction: reverse;
+  }
+
+  /*
+   * About-section stat counters. A faint dotted ring spins slowly clockwise
+   * around each value while two particles ride the same circle faster in
+   * the opposite direction, all colored via the per-stat `--stat-color`
+   * custom property. These are deliberate, user-approved exceptions to the
+   * no-looping-effects rule and are fully disabled under
+   * prefers-reduced-motion.
+   */
+  .orbit-ring {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    height: 5.5rem;
+    width: 5.5rem;
+    margin: -2.75rem;
+    border-radius: 9999px;
+    border: 1px dashed var(--stat-color, var(--color-accent));
+    opacity: 0.35;
+    animation: orbit-spin 14s linear infinite;
+  }
+
+  .orbit-dot {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    height: 5px;
+    width: 5px;
+    margin: -2.5px;
+    border-radius: 9999px;
+    background: var(--stat-color, var(--color-accent));
+    box-shadow: 0 0 6px var(--stat-color, var(--color-accent));
+    animation: orbit 5s linear infinite reverse;
+  }
+
+  /* Second particle orbits in the opposite direction to the first. */
+  .orbit-dot--alt {
+    height: 4px;
+    width: 4px;
+    margin: -2px;
+    animation-direction: normal;
+    animation-duration: 6s;
+  }
+
+  /* Subtle rose sheen continuously drifting across the stats container
+     (user-approved exception; disabled under reduced motion). */
+  .drift-gradient {
+    background-image: linear-gradient(
+      115deg,
+      transparent 30%,
+      rgba(212, 84, 126, 0.07) 50%,
+      transparent 70%
+    );
+    background-size: 250% 250%;
+    animation: gradient-drift 9s ease-in-out infinite alternate;
+  }
+
+  /* Gentle perpetual bobbing for the stat cards (user-approved exception,
+     staggered per card via animation-delay; disabled under reduced motion). */
+  .stat-float {
+    animation: stat-float 5.5s ease-in-out infinite;
+  }
+
+  /* Expanding ripple rings around the experience timeline nodes (always
+     running; user-approved exception, disabled under reduced motion). The
+     ring color comes from the per-node `--node-color` custom property. */
+  .node-ripple {
+    position: absolute;
+    inset: 0;
+    border-radius: 9999px;
+    border: 1px solid var(--node-color, var(--color-accent));
+    opacity: 0;
+    animation: node-ripple 2.6s ease-out infinite;
+    pointer-events: none;
+  }
+
+  .node-ripple--late {
+    animation-delay: -1.3s;
+  }
+
+  /*
+   * Border beam: a bright segment of the stat color traveling along the
+   * card border while hovered. A spinning conic gradient is masked down to
+   * a 1px border-shaped frame.
+   */
+  .border-beam {
+    position: absolute;
+    inset: 0;
+    border-radius: 1rem;
+    padding: 1px;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    -webkit-mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+  }
+
+  .border-beam::before {
+    content: "";
+    position: absolute;
+    inset: -100%;
+    background: conic-gradient(
+      from 0turn,
+      transparent 0turn 0.82turn,
+      var(--stat-color, var(--color-accent)) 0.92turn,
+      transparent 1turn
+    );
+    animation: orbit-spin 3.5s linear infinite;
+  }
+
+  .group:hover > .border-beam {
+    opacity: 1;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .marquee-track {
+      animation: none;
+    }
+
+    .orbit-dot {
+      display: none;
+    }
+
+    .orbit-ring,
+    .border-beam::before,
+    .stat-float,
+    .drift-gradient,
+    .node-ripple {
+      animation: none;
+    }
+  }
+}
+
+@keyframes node-ripple {
+  0% {
+    transform: scale(1);
+    opacity: 0.55;
+  }
+  100% {
+    transform: scale(2.2);
+    opacity: 0;
+  }
+}
+
+@keyframes gradient-drift {
+  from {
+    background-position: 0% 0%;
+  }
+  to {
+    background-position: 100% 100%;
+  }
+}
+
+@keyframes stat-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-9px);
+  }
+}
+
+@keyframes orbit {
+  from {
+    transform: rotate(0turn) translateX(2.75rem);
+  }
+  to {
+    transform: rotate(1turn) translateX(2.75rem);
+  }
+}
+
+@keyframes orbit-spin {
+  to {
+    transform: rotate(1turn);
+  }
+}
+
+@keyframes marquee-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+::selection {
+  background: var(--color-accent);
+  color: var(--color-accent-foreground);
 }

@@ -1,0 +1,98 @@
+{
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "experience": "Experience",
+    "skills": "Skills",
+    "projects": "Projects",
+    "blog": "Blog",
+    "contact": "Contact",
+    "wall": "Wall"
+  },
+  "hero": {
+    "greeting": "Hi, I'm",
+    "name": "Mohammad El Prince",
+    "roles": [
+      "Software Development Engineer",
+      "Full-Stack Developer",
+      "AWS Serverless Engineer"
+    ],
+    "tagline": "Software engineer with a data background who builds and ships production systems on AWS — 15+ serverless applications and a multi-region web platform serving operations teams at Amazon fulfillment centers.",
+    "ctaPrimary": "View my work",
+    "ctaSecondary": "Get in touch",
+    "scroll": "Scroll to explore"
+  },
+  "about": {
+    "title": "About",
+    "subtitle": "Who I am",
+    "body": [
+      "I'm a software engineer with a data background who builds and ships production systems on AWS. At Amazon I designed and deployed 15+ serverless applications and a multi-region web platform serving operations teams across North American fulfillment centers.",
+      "I'm strong in TypeScript, Python, and cloud infrastructure, with a bias for ownership and delivering end-to-end — from requirements and architecture through infrastructure-as-code, CI/CD, and production monitoring."
+    ],
+    "highlights": [
+      { "value": "15+", "label": "Serverless apps deployed" },
+      { "value": "100%", "label": "Test coverage across 6 packages" },
+      { "value": "AWS", "label": "Solutions Architect – Associate" }
+    ]
+  },
+  "experience": {
+    "title": "Experience",
+    "subtitle": "My journey",
+    "present": "Present"
+  },
+  "skills": {
+    "title": "Skills",
+    "subtitle": "What I work with"
+  },
+  "projects": {
+    "title": "Featured Projects",
+    "subtitle": "Selected work",
+    "viewAll": "View all projects",
+    "viewCase": "Read case study",
+    "viewCode": "Source",
+    "viewDemo": "Demo",
+    "viewLive": "Live site",
+    "confidential": "Confidential — source unavailable",
+    "problem": "Problem",
+    "solution": "Solution",
+    "architecture": "Architecture",
+    "stack": "Tech stack",
+    "challenges": "Challenges",
+    "results": "Results",
+    "back": "Back to projects"
+  },
+  "achievements": {
+    "title": "Certifications & Highlights",
+    "subtitle": "Credentials & milestones"
+  },
+  "github": {
+    "title": "GitHub Activity",
+    "subtitle": "Open-source contributions",
+    "contributions": "contributions in the last year",
+    "viewProfile": "View profile"
+  },
+  "contact": {
+    "title": "Let's build something",
+    "subtitle": "Get in touch",
+    "body": "Have a project, role, or idea in mind? I'm always open to interesting conversations.",
+    "cta": "Get in touch",
+    "emailLabel": "Email",
+    "copyEmail": "Copy email",
+    "copied": "Copied!"
+  },
+  "blog": {
+    "title": "Blog",
+    "subtitle": "Notes & writing",
+    "empty": "No posts yet — writing in progress."
+  },
+  "wall": {
+    "title": "The Wall",
+    "subtitle": "A snapshot of my open-source footprint"
+  },
+  "footer": {
+    "rights": "All rights reserved.",
+    "builtWith": "Built with Next.js, Tailwind CSS, GSAP & Lenis."
+  },
+  "theme": { "toggle": "Toggle theme" },
+  "locale": { "switch": "العربية" }
+}

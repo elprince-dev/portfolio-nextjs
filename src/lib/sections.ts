@@ -71,24 +71,24 @@ export function getNavItems(
 
 /**
  * The canonical section registry. Order follows Requirement 4.1:
- * Hero, Credibility, Projects, AI Engineering, Engineering Excellence,
- * Experience, Skills, Certifications, Contact.
+ * Hero, Credibility (About), Experience, Projects, AI Engineering,
+ * Engineering Excellence, Skills, Certifications, Contact.
  *
- * Navigation links (Requirement 4.3) are exposed for Projects, AI Engineering,
- * Experience, Skills, and Contact.
+ * Navigation links (Requirement 4.3) are exposed for Experience, Projects,
+ * AI Engineering, Skills, and Contact.
  */
 export const sectionRegistry: SectionDefinition[] = [
   { id: "hero", order: 0, showInNav: false },
   { id: "credibility", order: 1, showInNav: false },
-  { id: "projects", order: 2, navLabel: "Projects", showInNav: true },
+  { id: "experience", order: 2, navLabel: "Experience", showInNav: true },
+  { id: "projects", order: 3, navLabel: "Projects", showInNav: true },
   {
     id: "ai-engineering",
-    order: 3,
+    order: 4,
     navLabel: "AI Engineering",
     showInNav: true,
   },
-  { id: "engineering-excellence", order: 4, showInNav: false },
-  { id: "experience", order: 5, navLabel: "Experience", showInNav: true },
+  { id: "engineering-excellence", order: 5, showInNav: false },
   { id: "skills", order: 6, navLabel: "Skills", showInNav: true },
   { id: "certifications", order: 7, showInNav: false },
   { id: "contact", order: 8, navLabel: "Contact", showInNav: true },

@@ -72,30 +72,41 @@ export interface DesignTokens {
   };
 }
 
-/** Light Theme palette. */
+/**
+ * Light Theme palette — editorial white with a rose accent.
+ *
+ * The accent is deepened from the display rose (#d4547e) to #a83d62 so that
+ * white accent-foreground text meets WCAG AA (>= 4.5:1) on accent surfaces.
+ */
 export const lightPalette: Palette = {
   background: "#ffffff",
-  surface: "#f8fafc",
+  surface: "#f5f5f7",
   surfaceElevated: "#ffffff",
-  border: "#e2e8f0",
-  textPrimary: "#0f172a",
-  textSecondary: "#334155",
-  textMuted: "#475569",
-  accent: "#4f46e5",
+  border: "#e5e7eb",
+  textPrimary: "#1a1a2e",
+  textSecondary: "#4b5563",
+  textMuted: "#6b7280",
+  accent: "#a83d62",
   accentForeground: "#ffffff",
 };
 
-/** Dark Theme palette. */
+/**
+ * Dark Theme palette — true-black editorial theme with a rose accent.
+ *
+ * Muted text is lightened from the reference gray (#71717a ≈ 4.3:1 on black)
+ * to #7c7c85 so it clears WCAG AA, and accent-foreground is near-black since
+ * white on the rose accent falls short of 4.5:1.
+ */
 export const darkPalette: Palette = {
-  background: "#0b1120",
-  surface: "#111827",
-  surfaceElevated: "#1e293b",
-  border: "#334155",
-  textPrimary: "#f8fafc",
-  textSecondary: "#cbd5e1",
-  textMuted: "#94a3b8",
-  accent: "#818cf8",
-  accentForeground: "#0b1120",
+  background: "#000000",
+  surface: "#0a0a0a",
+  surfaceElevated: "#141414",
+  border: "#242424",
+  textPrimary: "#f0f0f0",
+  textSecondary: "#a1a1aa",
+  textMuted: "#7c7c85",
+  accent: "#d4547e",
+  accentForeground: "#0a0a0a",
 };
 
 /**
@@ -137,9 +148,9 @@ export const designTokens: DesignTokens = {
   },
   gradients: {
     brand:
-      "linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #ec4899 100%)",
+      "linear-gradient(120deg, #d4547e 0%, #e07a9c 50%, #00d294 100%)",
     subtle:
-      "linear-gradient(180deg, rgba(99,102,241,0.08) 0%, rgba(139,92,246,0) 100%)",
+      "linear-gradient(180deg, rgba(212,84,126,0.08) 0%, rgba(212,84,126,0) 100%)",
     radial: "radial-gradient(var(--tw-gradient-stops))",
     conic:
       "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
