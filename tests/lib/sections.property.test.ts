@@ -7,17 +7,17 @@ import {
 } from "@/lib/sections";
 
 // The documented canonical sequence from Requirement 4.1 (Experience moved
-// directly after the About/credibility section in the awrs-style redesign).
+// directly after the About/credibility section in the awrs-style redesign;
+// the Connect CTA banner sits directly before Contact).
 const CANONICAL_ID_ORDER: SectionId[] = [
   "hero",
   "credibility",
   "experience",
+  "skills",
   "projects",
   "ai-engineering",
   "engineering-excellence",
-  "skills",
-  "certifications",
-  "contact",
+  "connect",
 ];
 
 describe("getOrderedSections canonical ordering (Property 5)", () => {

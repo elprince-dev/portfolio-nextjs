@@ -1,10 +1,13 @@
 import { describe, it, expect } from "vitest";
-import { metadata } from "@/app/layout";
+import { generateMetadata } from "@/app/[locale]/layout";
 import { personJsonLd } from "@/lib/structured-data";
 import sitemap from "@/app/sitemap";
 import robots from "@/app/robots";
 import { siteUrl } from "@/lib/site";
 import { contact } from "@/content/contact";
+
+// The locale layout builds metadata per locale; assert on the default (en).
+const metadata = generateMetadata({ params: { locale: "en" } });
 
 /**
  * Metadata, structured-data, sitemap, and robots tests (Req 15.1–15.4).
@@ -61,12 +64,14 @@ describe("Open Graph and Twitter Card metadata (Req 15.2)", () => {
 });
 
 describe("sitemap.xml content (Req 15.3)", () => {
-  it("returns entries for the home and blog routes with absolute URLs", () => {
+  it("returns entries for the home and blog routes in both locales with absolute URLs", () => {
     const entries = sitemap();
     expect(entries.length).toBeGreaterThan(0);
     const urls = entries.map((entry) => entry.url);
-    expect(urls).toContain(`${siteUrl}/`);
-    expect(urls).toContain(`${siteUrl}/blog`);
+    expect(urls).toContain(`${siteUrl}/en`);
+    expect(urls).toContain(`${siteUrl}/en/blog`);
+    expect(urls).toContain(`${siteUrl}/ar`);
+    expect(urls).toContain(`${siteUrl}/ar/blog`);
     for (const entry of entries) {
       expect(entry.url.startsWith("http")).toBe(true);
     }

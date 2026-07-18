@@ -9,6 +9,8 @@ export interface SectionHeadingProps {
   title: string;
   /** Optional small uppercase mono eyebrow above the title. */
   eyebrow?: string;
+  /** Optional muted subtitle line under the title, above the rose bar. */
+  subtitle?: string;
   /** Optional centered layout; defaults to left-aligned. */
   centered?: boolean;
 }
@@ -16,6 +18,7 @@ export interface SectionHeadingProps {
 export function SectionHeading({
   title,
   eyebrow,
+  subtitle,
   centered = false,
 }: SectionHeadingProps) {
   return (
@@ -28,6 +31,9 @@ export function SectionHeading({
       <h2 className="font-sans text-4xl font-black tracking-tight text-[var(--color-text-primary)] sm:text-5xl">
         {title}
       </h2>
+      {subtitle && (
+        <p className="mt-3 text-[var(--color-text-secondary)]">{subtitle}</p>
+      )}
       <span
         aria-hidden="true"
         className={`mt-4 block h-1.5 w-14 rounded-full bg-[var(--color-accent)] ${

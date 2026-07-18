@@ -1,8 +1,10 @@
 import { MotionReveal } from "@/components/MotionReveal";
 import { SectionHeading } from "@/components/SectionHeading";
 import { ExperienceTimeline } from "@/components/ExperienceTimeline";
-import { experienceStages } from "@/content/experience";
 import { sortStagesChronologically } from "@/lib/experience";
+import { localizedExperience } from "@/i18n/content";
+import type { Locale } from "@/lib/i18n";
+import { t } from "@/i18n/ui";
 
 /**
  * ExperienceSection — the chronological career timeline (Req 7.1–7.4).
@@ -16,10 +18,12 @@ import { sortStagesChronologically } from "@/lib/experience";
  * the preserved resume content (Req 7.2, 7.4).
  */
 
-export function ExperienceSection() {
+export function ExperienceSection({ locale = "en" }: { locale?: Locale }) {
   // Chronologically sorted (Req 7.1), displayed newest-first to match the
   // reference design.
-  const stages = [...sortStagesChronologically(experienceStages)].reverse();
+  const stages = [
+    ...sortStagesChronologically(localizedExperience(locale)),
+  ].reverse();
 
   return (
     <section
@@ -29,7 +33,7 @@ export function ExperienceSection() {
     >
       <div className="mx-auto max-w-5xl">
         <MotionReveal complexity="simple">
-          <SectionHeading title="Experience" />
+          <SectionHeading title={t(locale).sections.experience} />
         </MotionReveal>
 
         <MotionReveal complexity="standard">

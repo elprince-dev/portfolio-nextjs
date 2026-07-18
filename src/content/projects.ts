@@ -3,10 +3,9 @@
  * structured case studies (Req 3.1, 3.2, 3.6).
  *
  * Each entry is a `CaseStudy` with a non-empty problem, solution, architecture
- * overview, tech stack, challenges, and results (Req 3.1). The six projects
- * preserved from the existing `ProjectsSection` content are kept exactly:
- * Quality Management Platform, YasMade (AWS Cloud Version), WriteWell,
- * Portfolio, Modern Landing Page, and Budget Tracker CLI (Req 3.2).
+ * overview, tech stack, challenges, and results (Req 3.1). The featured
+ * projects are: Noor AI, Quality Management Platform, YasMade (AWS Cloud
+ * Version), and Portfolio (Req 3.2).
  *
  * Tech-stack labels are preserved from the existing project content and paired
  * with reused `/public` icon assets where one exists (Req 3.6). Every
@@ -25,30 +24,112 @@ import type { CaseStudy } from "@/content/types";
 
 export const projects: CaseStudy[] = [
   {
+    slug: "noor-ai",
+    name: "Noor AI",
+    problem:
+      "General-purpose chatbots are unreliable for Islamic questions: they fabricate Quran and hadith citations and gloss over genuine differences between the four Sunni schools of thought.",
+    solution:
+      "A conversational Islamic Q&A assistant grounded in a retrieval-augmented knowledge base of the Quran and Sahih al-Bukhari. A LangChain tool-calling agent on AWS Bedrock (Claude) retrieves whole verses and hadith with precomputed citations, keeps conversation memory in DynamoDB, streams answers token by token, and states madhab differences explicitly instead of claiming false consensus — fully serverless on AWS.",
+    architectureOverview:
+      "An offline ingestion pipeline transforms the Quran and Sahih al-Bukhari into ~27,000 single-chunk corpus files, each paired with citation metadata, embedded with Cohere Multilingual v3 into an S3 Vectors index behind a Bedrock Knowledge Base — so retrieval units are always whole verses or whole hadith and citations come from metadata, never the model. A FastAPI backend runs on Lambda through the Lambda Web Adapter with response streaming over a Function URL; the LangChain agent calls the Knowledge Base Retrieve API as a tool and DynamoDB persists chat sessions for memory. The Next.js chat UI is served from S3 via CloudFront, which also routes /api/* to the backend under one custom domain (Route 53 + ACM). Everything is provisioned by AWS CDK across dedicated DNS, data, knowledge-base, API, and web stacks.",
+    techStack: [
+      { label: "Python", iconAsset: "python.svg" },
+      { label: "FastAPI" },
+      { label: "LangChain" },
+      { label: "AWS Bedrock", iconAsset: "aws.svg" },
+      { label: "AWS CDK", iconAsset: "aws.svg" },
+      { label: "DynamoDB" },
+      { label: "Next.js", iconAsset: "nextjs.svg" },
+      { label: "Tailwind CSS", iconAsset: "tailwindcss.svg" },
+    ],
+    challenges: [
+      "Eliminating fabricated citations: one corpus file per verse/hadith with citations precomputed at ingestion time, so the agent quotes references verbatim from retrieval metadata instead of generating them.",
+      "Presenting fiqh rulings faithfully across the four Sunni madhahib — the system prompt forbids claiming consensus and requires per-school classification with each school's own terminology.",
+      "Streaming agent responses end to end through Lambda without Docker: FastAPI behind the Lambda Web Adapter with a response-streaming Function URL, and Python dependencies bundled on the host with uv at deploy time.",
+    ],
+    results: [
+      "Live at noorai.elprince.net — one CloudFront domain serving both the chat UI and the streaming API.",
+      "Grounded answers citing whole Quran verses and Bukhari hadith from a ~27,000-chunk knowledge base.",
+      "Fully serverless, infrastructure-as-code deployment across five AWS CDK stacks.",
+    ],
+    diagram: {
+      kind: "architecture",
+      source: [
+        "graph LR",
+        "  User[User] --> CF[CloudFront + Route 53]",
+        "  CF --> S3UI[(S3 Static Chat UI)]",
+        "  CF -- /api/* --> Lambda[FastAPI on Lambda - streaming]",
+        "  Lambda --> Agent[LangChain Agent + Bedrock Claude]",
+        "  Agent --> KB[(Bedrock Knowledge Base - S3 Vectors)]",
+        "  Lambda --> DDB[(DynamoDB Chat Sessions)]",
+        "  Ingest[Ingestion Pipeline - Quran + Bukhari] --> KB",
+        "  CDK[AWS CDK IaC] -.provisions.-> CF",
+        "  CDK -.provisions.-> Lambda",
+        "  CDK -.provisions.-> KB",
+      ].join("\n"),
+      alt: "Architecture diagram of Noor AI: users reach a CloudFront distribution with a custom domain that serves the static Next.js chat UI from S3 and routes API calls to a streaming FastAPI Lambda, where a LangChain agent uses Bedrock Claude with a Bedrock Knowledge Base over S3 Vectors populated by a Quran and Bukhari ingestion pipeline, and DynamoDB stores chat sessions; the whole stack is provisioned with AWS CDK.",
+      flow: {
+        nodes: [
+          { id: "user", label: "User", sublabel: "noorai.elprince.net", icon: "user", x: 0, y: 40 },
+          { id: "cf", label: "CloudFront", sublabel: "Route 53 custom domain", icon: "cloudfront", x: 0, y: 240 },
+          { id: "cdk", label: "AWS CDK", sublabel: "5 stacks · IaC", icon: "cloudformation", x: 0, y: 440 },
+          { id: "s3ui", label: "S3 Static Site", sublabel: "Next.js chat UI", icon: "s3", x: 310, y: 40 },
+          { id: "lambda", label: "Lambda", sublabel: "FastAPI · streaming", icon: "lambda", x: 310, y: 240 },
+          { id: "ddb", label: "DynamoDB", sublabel: "Chat sessions", icon: "dynamodb", x: 310, y: 440 },
+          { id: "agent", label: "Bedrock Claude", sublabel: "LangChain agent", icon: "bedrock", x: 620, y: 240 },
+          { id: "ingest", label: "Ingestion Pipeline", sublabel: "Quran + Bukhari corpus", icon: "pipeline", x: 620, y: 440 },
+          { id: "kb", label: "Knowledge Base", sublabel: "S3 Vectors · 27k chunks", icon: "s3", x: 930, y: 240 },
+        ],
+        edges: [
+          { from: "user", to: "cf", fromSide: "bottom", toSide: "top" },
+          { from: "cf", to: "s3ui", label: "static UI" },
+          { from: "cf", to: "lambda", label: "/api/*" },
+          { from: "lambda", to: "agent" },
+          { from: "agent", to: "kb", label: "retrieve" },
+          { from: "lambda", to: "ddb", label: "memory", fromSide: "bottom", toSide: "top" },
+          { from: "ingest", to: "kb", label: "embeds", fromSide: "right", toSide: "bottom" },
+          { from: "cdk", to: "cf", label: "provisions", dashed: true, fromSide: "top", toSide: "bottom" },
+          { from: "cdk", to: "ddb", dashed: true, fromSide: "right", toSide: "left" },
+        ],
+      },
+    },
+    repoUrl: "https://github.com/elprince-dev/noor-ai",
+    demoUrl: "https://noorai.elprince.net/",
+    confidential: false,
+    imageAsset: "coding.png",
+  },
+  {
     slug: "quality-management-platform",
     name: "Quality Management Platform",
     problem:
       "Amazon fulfillment centers needed a scalable, multi-region platform to manage quality processes, track metrics, and provide real-time analytics dashboards for operations teams.",
     solution:
-      "A TypeScript monorepo using React 19, tRPC, and AWS CDK to deliver a serverless API with CDN-based auth, analytics dashboards, and full infrastructure as code — deployed across multiple AWS regions.",
+      "A TypeScript monorepo using React 19, tRPC, and AWS CDK delivers a serverless platform with authentication at the CDN edge, role-based access control, and analytics dashboards with manager-level aggregation and multi-location filtering. Alongside it, a fleet of event-driven data-automation tools processes operational data and pushes real-time alerts to operations teams — all deployed as multi-region infrastructure as code.",
     architectureOverview:
-      "A TypeScript monorepo fronts a CDN that handles authentication and serves the React 19 web client. Client requests reach a type-safe tRPC API running on serverless compute, which reads and writes operational and analytics data. The entire multi-region footprint is provisioned and deployed through AWS CDK infrastructure as code, with 100% test coverage enforced across the stack.",
+      "Requests arrive through a CloudFront CDN that authenticates users at the edge — hardened with WAF and fronted by Route 53 — before serving the React 19 client. The client calls a type-safe tRPC API on AWS Lambda that enforces role-based access control, backed by DynamoDB for quality and analytics data. Alongside the platform, 15+ serverless data-automation tools built on Lambda and EventBridge process operational data from S3 and internal APIs, delivering real-time alerts through SES, SNS, and Slack. CloudWatch and RUM provide monitoring and real-user telemetry, and the entire multi-region footprint is provisioned by AWS CDK with automated CI/CD and 100% test coverage across six packages.",
     techStack: [
       { label: "TypeScript" },
       { label: "React", iconAsset: "react.svg" },
       { label: "tRPC" },
       { label: "AWS CDK", iconAsset: "aws.svg" },
-      { label: "Serverless API" },
+      { label: "AWS Lambda" },
+      { label: "DynamoDB" },
+      { label: "CloudFront" },
+      { label: "EventBridge" },
+      { label: "Vitest" },
     ],
     challenges: [
       "Coordinating consistent quality data across multiple AWS regions.",
-      "Securing the API behind CDN-based authentication without adding latency.",
+      "Securing the API behind CDN-based authentication without adding latency, with role-based access control on every route.",
+      "Scaling from an MVP at a single pilot fulfillment center toward 8+ locations without disrupting live operations.",
+      "Aggregating quality analytics by manager and location in real time.",
       "Sustaining 100% test coverage across a growing TypeScript monorepo.",
     ],
     results: [
-      "Multi-region serverless platform serving operations teams in production.",
-      "100% test coverage maintained across the full stack.",
-      "Infrastructure fully reproducible through AWS CDK as code.",
+      "Multi-region serverless platform launched at a pilot fulfillment center and expanding across 8+ North American locations.",
+      "15+ event-driven data-automation tools delivering real-time alerts via SES, SNS, and Slack.",
+      "100% test coverage maintained across 6 monorepo packages with Vitest, ESLint, and snapshot testing.",
+      "Infrastructure fully reproducible through AWS CDK with automated CI/CD.",
     ],
     diagram: {
       kind: "architecture",
@@ -62,7 +143,32 @@ export const projects: CaseStudy[] = [
         "  CDK -.provisions.-> API",
         "  CDK -.provisions.-> Data",
       ].join("\n"),
-      alt: "Architecture diagram of the Quality Management Platform: an operations user connects through a CDN that handles authentication and serves the React 19 client, which calls a tRPC serverless API backed by quality and analytics data, with the whole multi-region stack provisioned by AWS CDK.",
+      alt: "Architecture diagram of the Quality Management Platform: operations teams connect through a CloudFront CDN with edge authentication and WAF, which serves the React 19 client; the client calls a tRPC API on Lambda with role-based access control backed by DynamoDB, CloudWatch and RUM monitor the platform, and event-driven data-automation tools on Lambda and EventBridge process operational data from S3 and deliver real-time alerts through SES, SNS, and Slack — all provisioned multi-region by AWS CDK.",
+      flow: {
+        nodes: [
+          { id: "ops", label: "Operations Teams", sublabel: "FC managers · 8+ sites", icon: "user", x: 0, y: 40 },
+          { id: "cf", label: "CloudFront", sublabel: "Edge auth · WAF · Route 53", icon: "cloudfront", x: 0, y: 240 },
+          { id: "cdk", label: "AWS CDK", sublabel: "Multi-region IaC · CI/CD", icon: "cloudformation", x: 0, y: 440 },
+          { id: "react", label: "React 19 Client", sublabel: "Analytics dashboards", icon: "/react.svg", x: 310, y: 40 },
+          { id: "api", label: "tRPC API", sublabel: "Lambda · RBAC", icon: "lambda", x: 310, y: 240 },
+          { id: "s3", label: "S3", sublabel: "Operational data", icon: "s3", x: 310, y: 440 },
+          { id: "watch", label: "CloudWatch", sublabel: "Monitoring · RUM", icon: "cloudwatch", x: 620, y: 40 },
+          { id: "ddb", label: "DynamoDB", sublabel: "Quality + analytics data", icon: "dynamodb", x: 620, y: 240 },
+          { id: "tools", label: "Data Automations", sublabel: "15+ Lambda + EventBridge tools", icon: "eventbridge", x: 620, y: 440 },
+          { id: "alerts", label: "Alerts", sublabel: "SES · SNS · Slack", icon: "sns", x: 930, y: 440 },
+        ],
+        edges: [
+          { from: "ops", to: "cf", fromSide: "bottom", toSide: "top" },
+          { from: "cf", to: "react", label: "serves" },
+          { from: "react", to: "api", label: "tRPC", fromSide: "bottom", toSide: "top" },
+          { from: "api", to: "ddb", label: "quality data" },
+          { from: "watch", to: "api", label: "monitors", dashed: true, fromSide: "bottom", toSide: "top" },
+          { from: "s3", to: "tools", label: "operational data" },
+          { from: "tools", to: "alerts", label: "real-time alerts" },
+          { from: "cdk", to: "cf", label: "provisions", dashed: true, fromSide: "top", toSide: "bottom" },
+          { from: "cdk", to: "s3", dashed: true, fromSide: "right", toSide: "left" },
+        ],
+      },
     },
     confidential: true,
     imageAsset: "coding.png",
@@ -108,53 +214,31 @@ export const projects: CaseStudy[] = [
         "  CDK -.provisions.-> SES",
       ].join("\n"),
       alt: "Architecture diagram of the YasMade AWS platform: customers reach a CloudFront CDN that serves a React and Vite single-page app, which uses Supabase for data and auth, S3 for assets, and SES for email, all provisioned by an AWS CDK CI/CD pipeline.",
+      flow: {
+        nodes: [
+          { id: "customer", label: "Customer", sublabel: "Shoppers + admins", icon: "user", x: 0, y: 40 },
+          { id: "cf", label: "CloudFront", sublabel: "CDN delivery", icon: "cloudfront", x: 0, y: 240 },
+          { id: "cdk", label: "AWS CDK", sublabel: "Self-mutating CI/CD", icon: "cloudformation", x: 0, y: 440 },
+          { id: "s3", label: "S3", sublabel: "Static assets · SPA hosting", icon: "s3", x: 310, y: 40 },
+          { id: "spa", label: "React + Vite SPA", sublabel: "Zustand state", icon: "/react.svg", x: 310, y: 240 },
+          { id: "ses", label: "SES", sublabel: "Transactional email", icon: "ses", x: 310, y: 440 },
+          { id: "supabase", label: "Supabase", sublabel: "Data · Auth · Storage", icon: "/supabase.png", x: 620, y: 240 },
+        ],
+        edges: [
+          { from: "customer", to: "cf", fromSide: "bottom", toSide: "top" },
+          { from: "cf", to: "s3", label: "origin fetch" },
+          { from: "cf", to: "spa", label: "serves" },
+          { from: "spa", to: "supabase", label: "data / auth" },
+          { from: "spa", to: "ses", label: "order emails", fromSide: "bottom", toSide: "top" },
+          { from: "cdk", to: "cf", label: "provisions", dashed: true, fromSide: "top", toSide: "bottom" },
+          { from: "cdk", to: "ses", dashed: true, fromSide: "right", toSide: "left" },
+        ],
+      },
     },
     repoUrl: "https://github.com/elprince-dev/YasMadeAWS",
     demoUrl: "https://www.youtube.com/watch?v=v2QkcMPeY3w",
     confidential: false,
     imageAsset: "yasmade.png",
-  },
-  {
-    slug: "writewell",
-    name: "WriteWell",
-    problem:
-      "Bloggers needed a simple platform to create, edit, and manage their content.",
-    solution:
-      "A full-stack blog application built with Next.js for both the frontend and the API, backed by a MySQL database on AWS RDS and image storage on AWS S3.",
-    architectureOverview:
-      "Next.js serves both the UI and the API routes. Blog content is persisted in a MySQL database hosted on AWS RDS, and uploaded images are stored in AWS S3 and referenced from the database by URL, so the application reads image URLs from the database and serves them directly from S3.",
-    techStack: [
-      { label: "JavaScript", iconAsset: "javascript.svg" },
-      { label: "Next.js", iconAsset: "nextjs.svg" },
-      { label: "HTML", iconAsset: "html.svg" },
-      { label: "SCSS", iconAsset: "scss.svg" },
-      { label: "MySQL", iconAsset: "mysql.svg" },
-    ],
-    challenges: [
-      "Connecting a Next.js API layer to a managed MySQL instance on AWS RDS.",
-      "Storing uploaded images in S3 and linking them to database records by URL.",
-      "Implementing full CRUD operations for blog posts with a responsive UI.",
-    ],
-    results: [
-      "Full CRUD blog platform with create, edit, and delete flows.",
-      "AWS S3 image storage integrated with the MySQL data model.",
-      "Responsive design deployed and publicly available.",
-    ],
-    diagram: {
-      kind: "architecture",
-      source: [
-        "graph LR",
-        "  User[Blogger] --> Next[Next.js UI + API]",
-        "  Next --> RDS[(MySQL on AWS RDS)]",
-        "  Next --> S3[(AWS S3 Images)]",
-        "  RDS -.image URLs.-> S3",
-      ].join("\n"),
-      alt: "Architecture diagram of WriteWell: a blogger interacts with a Next.js app that serves both UI and API, which stores post data in MySQL on AWS RDS and uploaded images in AWS S3, with the database holding the image URLs.",
-    },
-    repoUrl: "https://github.com/mohamedmhussein/writewell",
-    demoUrl: "https://writewell.vercel.app/",
-    confidential: false,
-    imageAsset: "writewell.PNG",
   },
   {
     slug: "portfolio",
@@ -185,75 +269,6 @@ export const projects: CaseStudy[] = [
     demoUrl: "https://mohammadelprince.vercel.app/",
     confidential: false,
     imageAsset: "portfolio.PNG",
-  },
-  {
-    slug: "modern-landing-page",
-    name: "Modern Landing Page",
-    problem: "Need to create an engaging technology showcase website.",
-    solution:
-      "A modern landing page with clean design and informative content, built with React and custom CSS styling for optimal performance.",
-    architectureOverview:
-      "A React single-page application composed of reusable presentation components, styled with hand-written CSS and CSS animations. The static site is optimized for fast load and a responsive layout across devices.",
-    techStack: [
-      { label: "React", iconAsset: "react.svg" },
-      { label: "JavaScript", iconAsset: "javascript.svg" },
-      { label: "HTML", iconAsset: "html.svg" },
-      { label: "CSS", iconAsset: "css.svg" },
-    ],
-    challenges: [
-      "Building a reusable React component structure for the landing sections.",
-      "Crafting CSS animations that stay smooth and performant.",
-      "Keeping the layout fully responsive across viewport sizes.",
-    ],
-    results: [
-      "Responsive landing page with a modern UI.",
-      "Reusable React components and CSS animations.",
-      "Deployed and publicly accessible.",
-    ],
-    repoUrl: "https://github.com/mohamedmhussein/gpt3",
-    demoUrl: "https://gpt3-intro.onrender.com/",
-    confidential: false,
-    imageAsset: "gpt3.PNG",
-  },
-  {
-    slug: "budget-tracker-cli",
-    name: "Budget Tracker CLI",
-    problem: "Personal finance management through a command-line interface.",
-    solution:
-      "A Python command-line application that helps manage finances and track expenses, using the SQLAlchemy ORM for database management and persistence.",
-    architectureOverview:
-      "A Python CLI reads user commands, validates the input, and persists financial records through the SQLAlchemy ORM into a SQLite database. The same data layer is queried to generate financial reports back to the terminal.",
-    techStack: [
-      { label: "Python", iconAsset: "python.svg" },
-      { label: "SQLite", iconAsset: "sqlite.svg" },
-      { label: "SQLAlchemy" },
-    ],
-    challenges: [
-      "Validating financial input entered through a text-only interface.",
-      "Modeling expense data with the SQLAlchemy ORM over SQLite.",
-      "Generating readable financial reports from stored records.",
-    ],
-    results: [
-      "Working CLI for tracking expenses and managing a budget.",
-      "SQLAlchemy ORM persistence over a SQLite database.",
-      "Input validation and financial report generation.",
-    ],
-    diagram: {
-      kind: "data-flow",
-      source: [
-        "graph LR",
-        "  CLI[CLI Input] --> Validate[Validation]",
-        "  Validate --> ORM[SQLAlchemy ORM]",
-        "  ORM --> DB[(SQLite)]",
-        "  DB --> Reports[Financial Reports]",
-        "  Reports --> CLI",
-      ].join("\n"),
-      alt: "Data-flow diagram of the Budget Tracker CLI: command-line input is validated, persisted through the SQLAlchemy ORM into a SQLite database, then read back to generate financial reports returned to the terminal.",
-    },
-    repoUrl:
-      "https://github.com/mohamedmhussein/python-p3-cli-project-budget-tracker",
-    confidential: false,
-    imageAsset: "budget-tracker.png",
   },
 ];
 

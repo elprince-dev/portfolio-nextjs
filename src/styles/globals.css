@@ -64,6 +64,12 @@
   --globe-rim: rgba(0, 0, 0, 0.1);
 }
 
+/* Arabic (RTL) typography: Tajawal carries both display and body text. */
+[dir="rtl"] {
+  --font-sans: "Tajawal", "Inter", system-ui, -apple-system, sans-serif;
+  --font-serif: "Tajawal", Georgia, serif;
+}
+
 .dark {
   /* Dark Theme palette */
   --color-background: #000000;
@@ -252,6 +258,32 @@
   }
 
   /*
+   * Navbar logo mark: the logo shape (public/logo/logo-mask.png, generated
+   * by scripts/generate-logo-mask.mjs) rendered as a single theme color via
+   * CSS mask — the fill follows the text color in both themes and turns
+   * rose on hover.
+   */
+  .logo-mark {
+    display: block;
+    width: 2.5rem;
+    height: 1.8rem;
+    background-color: var(--color-text-primary);
+    transition: background-color 0.3s ease;
+    -webkit-mask: url("/logo/logo-mask.png") center / contain no-repeat;
+    mask: url("/logo/logo-mask.png") center / contain no-repeat;
+  }
+
+  button:hover > .logo-mark,
+  a:hover > .logo-mark {
+    background-color: var(--color-accent);
+  }
+
+  /* Slow continuous rotation (project-card "open to explore" badge). */
+  .spin-slow {
+    animation: orbit-spin 10s linear infinite;
+  }
+
+  /*
    * Border beam: a bright segment of the stat color traveling along the
    * card border while hovered. A spinning conic gradient is masked down to
    * a 1px border-shaped frame.
@@ -259,8 +291,10 @@
   .border-beam {
     position: absolute;
     inset: 0;
-    border-radius: 1rem;
-    padding: 1px;
+    border-radius: inherit;
+    /* Ring thickness/speed are tunable per element: large surfaces (project
+       cards) need a thicker, slower beam to stay visible. */
+    padding: var(--beam-size, 1px);
     pointer-events: none;
     opacity: 0;
     transition: opacity 0.3s ease;
@@ -284,11 +318,39 @@
       var(--stat-color, var(--color-accent)) 0.92turn,
       transparent 1turn
     );
-    animation: orbit-spin 3.5s linear infinite;
+    animation: orbit-spin var(--beam-duration, 3.5s) linear infinite;
   }
 
   .group:hover > .border-beam {
     opacity: 1;
+  }
+
+  /*
+   * Featured Projects browser frames (accordion): the frames sit side by
+   * side in a flex row, all fully visible at rest. Hovering one grows its
+   * flex share while the siblings compress and dim slightly — wide web
+   * screenshots are revealed by expansion instead of overlapping. Because
+   * the hovered panel only ever grows around the cursor, the hover state is
+   * stable (no flicker).
+   */
+  .frame-panel {
+    flex: 1 1 0%;
+    min-width: 0;
+    transition:
+      flex-grow 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+      opacity 0.4s ease,
+      box-shadow 0.4s ease,
+      border-color 0.4s ease;
+  }
+
+  .frame-panel:hover {
+    flex-grow: 2.6;
+    border-color: rgba(255, 255, 255, 0.35);
+    box-shadow: 0 18px 45px rgba(0, 0, 0, 0.5);
+  }
+
+  .frame-stage:has(.frame-panel:hover) .frame-panel:not(:hover) {
+    opacity: 0.55;
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -304,7 +366,8 @@
     .border-beam::before,
     .stat-float,
     .drift-gradient,
-    .node-ripple {
+    .node-ripple,
+    .spin-slow {
       animation: none;
     }
   }

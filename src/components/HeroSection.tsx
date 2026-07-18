@@ -6,6 +6,8 @@ import { HiArrowRight, HiDocumentText } from "react-icons/hi";
 import { MotionReveal } from "@/components/MotionReveal";
 import { Marquee } from "@/components/Marquee";
 import { contact } from "@/content/contact";
+import type { Locale } from "@/lib/i18n";
+import { t } from "@/i18n/ui";
 
 /**
  * HeroSection — the first above-the-fold section (Req 1.1–1.6), in the
@@ -27,27 +29,8 @@ const RESUME_HREF = "/Resume - External.pdf";
 const FOCUS_RING =
   "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-background)]";
 
-/** Keyword bands for the decorative crossing ribbons. */
-const MARQUEE_PRIMARY = [
-  "AI Engineer",
-  "Software Engineer",
-  "AWS Serverless",
-  "RAG & Agentic Systems",
-  "TypeScript",
-  "Python",
-  "Full-Stack Developer",
-];
-
-const MARQUEE_SECONDARY = [
-  "Problem Solver",
-  "Cloud Architect",
-  "Type-Safe Systems",
-  "Production AI",
-  "End-to-End Ownership",
-  "More Than an Engineer",
-];
-
-export function HeroSection() {
+export function HeroSection({ locale = "en" }: { locale?: Locale }) {
+  const dict = t(locale);
   return (
     <section
       id="hero"
@@ -65,26 +48,22 @@ export function HeroSection() {
         complexity="standard"
         className="relative z-10 flex grow flex-col items-center justify-center px-4 pb-44 pt-16 text-center sm:px-6 sm:pb-48"
       >
-        {/* Photo (Req 1.2), kept as a small editorial avatar. */}
+        {/* Photo (Req 1.2): a prominent portrait with a rose ring + glow. */}
         <Image
           src="/myPhoto.png"
-          width={56}
-          height={56}
+          width={160}
+          height={160}
           alt="Mohammad El Prince"
           priority
-          className="mb-10 h-12 w-12 rounded-full object-cover ring-1 ring-[var(--color-border)]"
+          className="mb-8 h-32 w-32 rounded-full object-cover shadow-[0_0_45px_var(--color-rose-glow)] ring-2 ring-[var(--color-accent)]/70 ring-offset-4 ring-offset-[var(--color-background)] sm:h-40 sm:w-40"
         />
 
-        <p className="font-mono text-[11px] uppercase tracking-[0.6em] text-[var(--color-text-secondary)]">
-          Hi, I&apos;m
-        </p>
-
-        <h1 className="text-gradient-rose mt-3 max-w-6xl pb-2 font-sans text-6xl font-black leading-[1.02] tracking-tight sm:text-7xl lg:text-[6.5rem]">
+        <h1 className="text-gradient-rose max-w-6xl pb-2 font-sans text-6xl font-black leading-[1.02] tracking-tight sm:text-7xl lg:text-[6.5rem]">
           Mohammad El Prince
         </h1>
 
         <p className="mt-5 text-base text-[var(--color-text-secondary)] sm:text-lg">
-          AI Engineer &amp; Full-Stack Software Engineer
+          {dict.hero.title}
         </p>
 
         {/* Primary + secondary actions (Req 1.3), kept minimal. */}
@@ -94,10 +73,10 @@ export function HeroSection() {
             data-testid="hero-primary-cta"
             className={`group inline-flex items-center gap-2 rounded-full bg-[var(--color-accent)] px-6 py-2.5 text-sm font-medium text-[var(--color-accent-foreground)] transition-transform hover:scale-[1.03] ${FOCUS_RING}`}
           >
-            View my work
+            {dict.hero.viewMyWork}
             <HiArrowRight
               aria-hidden="true"
-              className="transition-transform group-hover:translate-x-1"
+              className="transition-transform group-hover:translate-x-1 rtl:rotate-180 rtl:group-hover:-translate-x-1"
             />
           </a>
 
@@ -109,7 +88,7 @@ export function HeroSection() {
             className={`inline-flex items-center gap-2 rounded-full border border-[var(--color-border)] px-6 py-2.5 text-sm font-medium text-[var(--color-text-secondary)] transition-colors hover:border-[var(--color-accent)] hover:text-[var(--color-text-primary)] ${FOCUS_RING}`}
           >
             <HiDocumentText aria-hidden="true" />
-            Resume
+            {dict.hero.resume}
           </a>
 
           {/* Direct social links (Req 1.5). */}
@@ -117,7 +96,7 @@ export function HeroSection() {
             href={contact.githubUrl}
             target="_blank"
             rel="noopener noreferrer"
-            aria-label="Mohammad's GitHub profile"
+            aria-label={dict.hero.githubLabel}
             className={`rounded-full border border-[var(--color-border)] p-2.5 text-[var(--color-text-secondary)] transition-colors hover:border-[var(--color-accent)] hover:text-[var(--color-accent)] ${FOCUS_RING}`}
           >
             <AiOutlineGithub aria-hidden="true" size={18} />
@@ -126,7 +105,7 @@ export function HeroSection() {
             href={contact.linkedinUrl}
             target="_blank"
             rel="noopener noreferrer"
-            aria-label="Mohammad's LinkedIn profile"
+            aria-label={dict.hero.linkedinLabel}
             className={`rounded-full border border-[var(--color-border)] p-2.5 text-[var(--color-text-secondary)] transition-colors hover:border-[var(--color-accent)] hover:text-[var(--color-accent)] ${FOCUS_RING}`}
           >
             <AiOutlineLinkedin aria-hidden="true" size={18} />
@@ -140,18 +119,18 @@ export function HeroSection() {
         className="pointer-events-none absolute inset-x-0 bottom-0 h-48 sm:h-52"
       >
         {/* Red ribbon (behind), descending from left to right, white text. */}
-        <div className="absolute inset-x-[-4%] bottom-9 rotate-[3.5deg]">
+        <div className="absolute inset-x-[-4%] bottom-9 rotate-[3.5deg]" dir="ltr">
           <Marquee
-            items={MARQUEE_PRIMARY}
+            items={dict.hero.marqueePrimary}
             reverse
             duration={9}
             className="bg-[#dc2260] py-4 text-white shadow-xl"
           />
         </div>
         {/* Black ribbon (front), descending from right to left, gray text. */}
-        <div className="absolute inset-x-[-4%] bottom-5 -rotate-[3deg]">
+        <div className="absolute inset-x-[-4%] bottom-5 -rotate-[3deg]" dir="ltr">
           <Marquee
-            items={MARQUEE_SECONDARY}
+            items={dict.hero.marqueeSecondary}
             duration={11}
             className="border-y border-[var(--color-border)] bg-[var(--color-surface-elevated)] py-4 text-[var(--color-text-secondary)] shadow-2xl"
           />

@@ -1,26 +1,27 @@
 import React from "react";
 import { AiOutlineGithub, AiOutlineLinkedin } from "react-icons/ai";
+import type { Locale } from "@/lib/i18n";
+import { t } from "@/i18n/ui";
 
 /**
- * Footer — social links and copyright (preserved, Req 16.4).
- *
- * Migrated to TypeScript with no behavioral change.
+ * Footer — social links and copyright (preserved, Req 16.4), bilingual.
  */
 
-const Footer: React.FC = () => {
+const Footer: React.FC<{ locale?: Locale }> = ({ locale = "en" }) => {
+  const dict = t(locale);
   return (
     <footer className="mx-auto max-w-3xl px-4 sm:px-6 md:max-w-5xl ">
       <hr className="w-full h-0.5 mx-auto mt-8 bg-neutral-200 border-0"></hr>
       <div className="mx-auto  p-4 flex flex-col text-center text-neutral-900 md:flex-row md:justify-between">
-        <div className="flex flex-row items-center justify-center space-x-1 text-neutral-500 dark:text-neutral-100">
-          © {new Date().getFullYear()} Mohammad El Prince
-          <a href="/" className="hover:underline"></a>
+        <div className="flex flex-row items-center justify-center gap-1 text-neutral-500 dark:text-neutral-100">
+          © {new Date().getFullYear()} {dict.footer.rights}
         </div>
-        <div className="flex flex-row items-center justify-center space-x-2 mb-1">
+        <div className="flex flex-row items-center justify-center gap-2 mb-1">
           <a
             href="https://github.com/elprince-dev"
             rel="noreferrer"
             target="_blank"
+            aria-label={dict.hero.githubLabel}
           >
             <AiOutlineGithub
               className="hover:-translate-y-1 transition-transform cursor-pointer text-neutral-500 dark:text-neutral-100"
@@ -31,6 +32,7 @@ const Footer: React.FC = () => {
             href="https://www.linkedin.com/in/elprince-dev/"
             rel="noreferrer"
             target="_blank"
+            aria-label={dict.hero.linkedinLabel}
           >
             <AiOutlineLinkedin
               className="hover:-translate-y-1 transition-transform cursor-pointer text-neutral-500 dark:text-neutral-100"

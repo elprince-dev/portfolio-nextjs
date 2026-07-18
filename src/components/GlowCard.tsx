@@ -1,6 +1,11 @@
 "use client";
 
-import type { CSSProperties, MouseEvent, ReactNode } from "react";
+import type {
+  ComponentPropsWithoutRef,
+  CSSProperties,
+  MouseEvent,
+  ReactNode,
+} from "react";
 
 /**
  * GlowCard — a card whose interior glows with a soft radial spotlight that
@@ -14,11 +19,18 @@ import type { CSSProperties, MouseEvent, ReactNode } from "react";
  * the pointer, so nothing animates autonomously (Req 12.5).
  */
 
-export interface GlowCardProps {
+export interface GlowCardProps
+  extends Omit<ComponentPropsWithoutRef<"div">, "onMouseMove"> {
   /** Spotlight color (include alpha), e.g. "rgba(0,210,148,0.14)". */
   spotlight: string;
   /** Optional second color used while hovering the right half. */
   spotlightSecondary?: string;
+  /**
+   * When set, renders a `.border-beam` (bright segment traveling along the
+   * border while hovered) in this color. Rendered as a direct child of the
+   * group element, as the beam CSS requires.
+   */
+  beamColor?: string;
   /** Card shell classes (border, background, padding, hover effects). */
   className?: string;
   /** Optional static styles (e.g. an ambient background tint). */
@@ -29,9 +41,11 @@ export interface GlowCardProps {
 export function GlowCard({
   spotlight,
   spotlightSecondary,
+  beamColor,
   className = "",
   style,
   children,
+  ...rest
 }: GlowCardProps) {
   const onMouseMove = (e: MouseEvent<HTMLDivElement>) => {
     const rect = e.currentTarget.getBoundingClientRect();
@@ -51,6 +65,7 @@ export function GlowCard({
       className={`group relative overflow-hidden ${className}`}
       style={style}
       onMouseMove={onMouseMove}
+      {...rest}
     >
       <div
         aria-hidden="true"
@@ -59,6 +74,13 @@ export function GlowCard({
           background: `radial-gradient(260px circle at var(--mx, 50%) var(--my, 50%), var(--spot-color, ${spotlight}), transparent 70%)`,
         }}
       />
+      {beamColor && (
+        <span
+          aria-hidden="true"
+          className="border-beam"
+          style={{ "--stat-color": beamColor } as CSSProperties}
+        />
+      )}
       <div className="relative h-full">{children}</div>
     </div>
   );

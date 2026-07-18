@@ -1,5 +1,6 @@
 import type { ComponentType } from "react";
 import type { SectionId } from "@/lib/sections";
+import type { Locale } from "@/lib/i18n";
 import HeroSection from "@/components/HeroSection";
 import CredibilitySection from "@/components/CredibilitySection";
 import ProjectsSection from "@/components/ProjectsSection";
@@ -7,8 +8,7 @@ import AIEngineeringSection from "@/components/AIEngineeringSection";
 import EngineeringExcellenceSection from "@/components/EngineeringExcellenceSection";
 import ExperienceSection from "@/components/ExperienceSection";
 import SkillsSection from "@/components/SkillsSection";
-import CertificationsSection from "@/components/CertificationsSection";
-import ContactSection from "@/components/ContactSection";
+import ConnectSection from "@/components/ConnectSection";
 
 /**
  * Maps each {@link SectionId} to the component that renders it. The home page
@@ -18,7 +18,10 @@ import ContactSection from "@/components/ContactSection";
  * stable DOM id equal to its {@link SectionId}, used for scroll navigation and
  * active-section detection.
  */
-export const sectionComponents: Record<SectionId, ComponentType> = {
+export const sectionComponents: Record<
+  SectionId,
+  ComponentType<{ locale?: Locale }>
+> = {
   hero: HeroSection,
   credibility: CredibilitySection,
   projects: ProjectsSection,
@@ -26,6 +29,5 @@ export const sectionComponents: Record<SectionId, ComponentType> = {
   "engineering-excellence": EngineeringExcellenceSection,
   experience: ExperienceSection,
   skills: SkillsSection,
-  certifications: CertificationsSection,
-  contact: ContactSection,
+  connect: ConnectSection,
 };

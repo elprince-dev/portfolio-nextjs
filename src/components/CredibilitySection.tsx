@@ -7,8 +7,9 @@ import { Clock } from "@/components/Clock";
 import { Globe } from "@/components/Globe";
 import { GlowCard } from "@/components/GlowCard";
 import { StatGrid } from "@/components/StatGrid";
-import { credibility } from "@/content/credibility";
-import { about } from "@/content/about";
+import { localizedAbout, localizedCredibility } from "@/i18n/content";
+import type { Locale } from "@/lib/i18n";
+import { t } from "@/i18n/ui";
 
 /**
  * CredibilitySection — the "About Me" bento grid, carrying the trust signals
@@ -45,14 +46,36 @@ const ROSE_SPOTLIGHT = "rgba(212,84,126,0.14)";
 const GREEN_CARD =
   "rounded-3xl border border-[rgba(0,210,148,0.4)] bg-[var(--color-surface)] transition-[border-color,box-shadow] duration-300";
 
-export function CredibilitySection() {
+/** Locale-specific labels for this section's small chrome strings. */
+const LOCAL_STRINGS = {
+  en: {
+    certifications: "Certifications",
+    certified: "Certified",
+    awsCertifications: "AWS certifications:",
+    resume: "Resume",
+    at: "at",
+    firstName: "Mohammad",
+  },
+  ar: {
+    certifications: "الشهادات",
+    certified: "معتمد",
+    awsCertifications: "شهادات AWS:",
+    resume: "السيرة الذاتية",
+    at: "في",
+    firstName: "محمد",
+  },
+} as const;
+
+export function CredibilitySection({ locale = "en" }: { locale?: Locale }) {
   const {
     employer,
     roleFocus,
     awsCertificationCount,
     awsCertifications,
     metrics,
-  } = credibility;
+  } = localizedCredibility(locale);
+  const about = localizedAbout(locale);
+  const strings = LOCAL_STRINGS[locale];
 
   return (
     <section
@@ -62,7 +85,7 @@ export function CredibilitySection() {
     >
       <div className="mx-auto max-w-6xl">
         <MotionReveal complexity="simple">
-          <SectionHeading title="About Me" />
+          <SectionHeading title={t(locale).sections.about} />
         </MotionReveal>
 
         {/* Top bento row. */}
@@ -84,10 +107,10 @@ export function CredibilitySection() {
               </div>
               <div>
                 <h3 className="text-2xl font-bold text-[var(--color-accent)]">
-                  Mohammad
+                  {strings.firstName}
                 </h3>
                 <p className="mt-0.5 text-xs text-[var(--color-text-secondary)]">
-                  {roleFocus} at {employer}
+                  {roleFocus} {strings.at} {employer}
                 </p>
               </div>
             </div>
@@ -128,7 +151,7 @@ export function CredibilitySection() {
                 <HiOutlineBadgeCheck aria-hidden="true" size={18} />
               </span>
               <p className="font-mono text-[10px] uppercase tracking-[0.3em] text-[var(--color-accent)]">
-                Certifications
+                {strings.certifications}
               </p>
             </div>
             <div className="mt-auto pt-10">
@@ -137,14 +160,14 @@ export function CredibilitySection() {
                   Amazon Web Services
                 </h3>
                 <span className="rounded-full bg-[rgba(0,210,148,0.12)] px-2 py-0.5 text-[10px] font-semibold text-[var(--color-mint)]">
-                  Certified
+                  {strings.certified}
                 </span>
               </div>
               <p
                 data-testid="aws-certification-count"
                 className="mt-1.5 text-sm leading-relaxed text-[var(--color-text-secondary)]"
               >
-                {awsCertificationCount} AWS certifications:{" "}
+                {awsCertificationCount} {strings.awsCertifications}{" "}
                 {awsCertifications.join(" · ")}
               </p>
             </div>
@@ -192,7 +215,7 @@ export function CredibilitySection() {
                   className={`mt-6 inline-flex items-center gap-2 rounded-full border border-[var(--color-mint)] px-5 py-2 text-sm font-medium text-[var(--color-mint)] transition-colors hover:bg-[rgba(0,210,148,0.1)] ${FOCUS_RING}`}
                 >
                   <HiOutlineDownload aria-hidden="true" />
-                  Resume
+                  {strings.resume}
                 </a>
               </div>
 

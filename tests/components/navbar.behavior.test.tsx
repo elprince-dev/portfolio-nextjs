@@ -87,14 +87,23 @@ describe("Navbar navigation behavior", () => {
       observerCallback = null;
       originalIO = globalThis.IntersectionObserver;
 
+      // Multiple observers may be constructed (e.g. next/link creates one
+      // for viewport prefetching). Capture the callback belonging to the
+      // observer that actually watches the <section> anchors — that's the
+      // active-section tracker from useActiveSection.
       class CapturingObserver implements IntersectionObserver {
         readonly root: Element | Document | null = null;
         readonly rootMargin: string = "";
         readonly thresholds: ReadonlyArray<number> = [];
+        private readonly cb: IntersectionObserverCallback;
         constructor(cb: IntersectionObserverCallback) {
-          observerCallback = cb;
+          this.cb = cb;
         }
-        observe() {}
+        observe(target: Element) {
+          if (target.tagName === "SECTION") {
+            observerCallback = this.cb;
+          }
+        }
         unobserve() {}
         disconnect() {}
         takeRecords(): IntersectionObserverEntry[] {
@@ -160,7 +169,7 @@ describe("Navbar navigation behavior", () => {
         "page",
       );
 
-      // Projects leaves and Contact enters.
+      // Projects leaves and Experience enters.
       act(() => {
         observerCallback!(
           [
@@ -170,7 +179,7 @@ describe("Navbar navigation behavior", () => {
               intersectionRatio: 0,
             } as unknown as IntersectionObserverEntry,
             {
-              target: document.getElementById("contact"),
+              target: document.getElementById("experience"),
               isIntersecting: true,
               intersectionRatio: 1,
             } as unknown as IntersectionObserverEntry,
@@ -179,7 +188,7 @@ describe("Navbar navigation behavior", () => {
         );
       });
 
-      expect(within(primary).getByText("Contact")).toHaveAttribute(
+      expect(within(primary).getByText("Experience")).toHaveAttribute(
         "aria-current",
         "page",
       );
@@ -199,6 +208,11 @@ describe("Navbar navigation behavior", () => {
       for (const label of navLabels) {
         expect(within(primary).getByText(label)).toBeInTheDocument();
       }
+      // The Contact page link is exposed alongside the section links.
+      expect(within(primary).getByText("Contact")).toHaveAttribute(
+        "href",
+        "/en/contact",
+      );
 
       // Open the collapsible mobile menu.
       await user.click(screen.getByRole("button", { name: "Open menu" }));
@@ -207,6 +221,10 @@ describe("Navbar navigation behavior", () => {
       for (const label of navLabels) {
         expect(within(mobile).getByText(label)).toBeInTheDocument();
       }
+      expect(within(mobile).getByText("Contact")).toHaveAttribute(
+        "href",
+        "/en/contact",
+      );
     });
   });
 

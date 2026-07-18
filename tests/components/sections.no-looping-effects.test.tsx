@@ -3,7 +3,7 @@ import { render, cleanup } from "@testing-library/react";
 import type { ReactElement } from "react";
 import { HeroSection } from "@/components/HeroSection";
 import { CredibilitySection } from "@/components/CredibilitySection";
-import { CertificationsSection } from "@/components/CertificationsSection";
+
 import { AIEngineeringSection } from "@/components/AIEngineeringSection";
 import { EngineeringExcellenceSection } from "@/components/EngineeringExcellenceSection";
 import { ExperienceSection } from "@/components/ExperienceSection";
@@ -43,7 +43,7 @@ const PROHIBITED = [
 const sections: Array<{ name: string; element: ReactElement }> = [
   { name: "HeroSection", element: <HeroSection /> },
   { name: "CredibilitySection", element: <CredibilitySection /> },
-  { name: "CertificationsSection", element: <CertificationsSection /> },
+
   { name: "AIEngineeringSection", element: <AIEngineeringSection /> },
   {
     name: "EngineeringExcellenceSection",

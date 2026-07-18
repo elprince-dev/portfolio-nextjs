@@ -17,8 +17,7 @@ const SECTION_IDS: SectionId[] = [
   "engineering-excellence",
   "experience",
   "skills",
-  "certifications",
-  "contact",
+  "connect",
 ];
 
 // Generates a single SectionDefinition with a constrained `order`. Drawing

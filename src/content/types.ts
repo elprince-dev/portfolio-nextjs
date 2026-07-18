@@ -20,12 +20,49 @@ export interface TechStackItem {
   iconAsset?: string;
 }
 
+/** A node in an interactive architecture diagram (React Flow). */
+export interface FlowNodeSpec {
+  id: string;
+  label: string;
+  /** Secondary line under the label. */
+  sublabel?: string;
+  /**
+   * Icon: an AWS icon filename (without extension) under /public/aws, or an
+   * absolute /public path (starting with "/") for non-AWS logos.
+   */
+  icon?: string;
+  /** Authored canvas position (fitView scales the whole diagram). */
+  x: number;
+  y: number;
+}
+
+/** An edge in an interactive architecture diagram. */
+export interface FlowEdgeSpec {
+  from: string;
+  to: string;
+  label?: string;
+  /** Dashed (e.g. "provisions") relationships. */
+  dashed?: boolean;
+  /** Which side of the source node the edge leaves from (default right). */
+  fromSide?: "right" | "left" | "top" | "bottom";
+  /** Which side of the target node the edge enters (default left). */
+  toSide?: "left" | "right" | "top" | "bottom";
+}
+
+/** Structured node/edge description for the interactive diagram renderer. */
+export interface DiagramFlowSpec {
+  nodes: FlowNodeSpec[];
+  edges: FlowEdgeSpec[];
+}
+
 export interface DiagramSpec {
   kind: "architecture" | "data-flow";
-  /** Mermaid source or a structured node/edge description. */
+  /** Mermaid source (fallback renderer when no `flow` spec is present). */
   source: string;
   /** Descriptive alt text (Req 14.2). */
   alt: string;
+  /** Interactive AWS-icon diagram; preferred over `source` when present. */
+  flow?: DiagramFlowSpec;
 }
 
 export interface CaseStudy {
@@ -69,6 +106,8 @@ export interface AICapabilityArea {
   competencyDescription: string;
   /** Present only when a user-supplied AI project exists. */
   project?: CaseStudy;
+  /** Concrete tools/skills applied in this area (e.g. from Noor AI). */
+  skills?: string[];
 }
 
 // ---------------------------------------------------------------------------

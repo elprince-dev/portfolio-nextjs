@@ -4,16 +4,15 @@ import { motion } from "framer-motion";
 import { HiCalendar, HiTag, HiArrowRight, HiHome } from "react-icons/hi";
 import { getAllBlogs, type Blog } from "@/data/blogs";
 import BlogModal from "@/components/BlogModal";
-import Navbar from "@/components/Navbar";
+import { isLocale } from "@/lib/i18n";
 
 /**
- * Blog list page (preserved, Req 16.1, 16.4).
- *
- * Renders the full blog list with category filtering and modal reading.
- * Migrated to TypeScript with no behavioral change.
+ * Blog list page (preserved, Req 16.1, 16.4). Blog posts are authored in
+ * English; the page is available under both locales with English content.
  */
 
-const BlogPage: React.FC = () => {
+const BlogPage: React.FC<{ params?: { locale?: string } }> = ({ params }) => {
+  const locale = params?.locale && isLocale(params.locale) ? params.locale : "en";
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [selectedBlog, setSelectedBlog] = useState<Blog | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -63,7 +62,6 @@ const BlogPage: React.FC = () => {
   if (loading) {
     return (
       <>
-        <Navbar />
         <div className="min-h-screen bg-white dark:bg-stone-900 pt-24 pb-20">
           <div className="max-w-7xl mx-auto px-6">
             <div className="text-center">
@@ -80,7 +78,6 @@ const BlogPage: React.FC = () => {
 
   return (
     <>
-      <Navbar />
       <div className="min-h-screen bg-white dark:bg-stone-900 pt-24 pb-20">
         <div className="max-w-7xl mx-auto px-6">
           {/* Header */}
@@ -91,7 +88,7 @@ const BlogPage: React.FC = () => {
             className="text-center mb-16"
           >
             <a
-              href="/"
+              href={`/${locale}`}
               className="inline-flex items-center text-teal-600 dark:text-teal-400 hover:text-teal-700 dark:hover:text-teal-300 mb-8 mt-8 transition-colors duration-300"
             >
               <HiHome className="w-5 h-5 mr-2" />

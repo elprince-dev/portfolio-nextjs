@@ -16,8 +16,7 @@ export type SectionId =
   | "engineering-excellence"
   | "experience"
   | "skills"
-  | "certifications"
-  | "contact";
+  | "connect";
 
 /** Describes a single section's position and navigation presence. */
 export interface SectionDefinition {
@@ -71,27 +70,29 @@ export function getNavItems(
 
 /**
  * The canonical section registry. Order follows Requirement 4.1:
- * Hero, Credibility (About), Experience, Projects, AI Engineering,
- * Engineering Excellence, Skills, Certifications, Contact.
+ * Hero, Credibility (About), Experience, Skills, Projects, AI Engineering,
+ * Engineering Excellence, Connect. (Certifications appear in the About
+ * section's credibility card rather than as a standalone section.)
  *
- * Navigation links (Requirement 4.3) are exposed for Experience, Projects,
- * AI Engineering, Skills, and Contact.
+ * Navigation links (Requirement 4.3) are exposed for Experience, Skills,
+ * Projects, and AI Engineering. Contact lives on its own /contact page — the
+ * Navbar appends a page link for it, and the Connect banner (the home page's
+ * closing call-to-action) links there as well.
  */
 export const sectionRegistry: SectionDefinition[] = [
   { id: "hero", order: 0, showInNav: false },
   { id: "credibility", order: 1, showInNav: false },
   { id: "experience", order: 2, navLabel: "Experience", showInNav: true },
-  { id: "projects", order: 3, navLabel: "Projects", showInNav: true },
+  { id: "skills", order: 3, navLabel: "Skills", showInNav: true },
+  { id: "projects", order: 4, navLabel: "Projects", showInNav: true },
   {
     id: "ai-engineering",
-    order: 4,
+    order: 5,
     navLabel: "AI Engineering",
     showInNav: true,
   },
-  { id: "engineering-excellence", order: 5, showInNav: false },
-  { id: "skills", order: 6, navLabel: "Skills", showInNav: true },
-  { id: "certifications", order: 7, showInNav: false },
-  { id: "contact", order: 8, navLabel: "Contact", showInNav: true },
+  { id: "engineering-excellence", order: 6, showInNav: false },
+  { id: "connect", order: 7, showInNav: false },
 ];
 
 // Fail fast at module load if the registry is misconfigured (Requirement 4.2).

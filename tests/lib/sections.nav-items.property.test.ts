@@ -20,8 +20,7 @@ const SECTION_IDS: SectionId[] = [
   "engineering-excellence",
   "experience",
   "skills",
-  "certifications",
-  "contact",
+  "connect",
 ];
 
 // Generates a single SectionDefinition-like object with a random showInNav
@@ -69,14 +68,13 @@ describe("Property 7: Navigation exposes a consistent link set", () => {
     );
   });
 
-  it("the canonical registry exposes exactly Experience, Projects, AI Engineering, Skills, and Contact", () => {
+  it("the canonical registry exposes exactly Experience, Skills, Projects, and AI Engineering (Contact is a page link)", () => {
     const navIds = getNavItems(sectionRegistry).map((def) => def.id);
     expect(navIds).toEqual([
       "experience",
+      "skills",
       "projects",
       "ai-engineering",
-      "skills",
-      "contact",
     ]);
   });
 });
