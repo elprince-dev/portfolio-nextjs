@@ -3,13 +3,10 @@
  * data, the sitemap, and robots (Req 13.4, 15.1–15.4).
  *
  * Canonical site URL resolution (first match wins):
- *  1. `NEXT_PUBLIC_SITE_URL` — explicit override (set this once a custom
- *     domain like elprince.dev is registered and attached).
- *  2. Vercel's build-time env vars — so Open Graph images, the sitemap, and
- *     robots resolve to the *live* deployment domain instead of an
- *     unregistered placeholder (a dead og:image URL makes link previews
- *     show no thumbnail).
- *  3. Local-dev fallback.
+ *  1. `NEXT_PUBLIC_SITE_URL` — explicit override.
+ *  2. Vercel's build-time env vars — so preview deployments resolve Open
+ *     Graph images, the sitemap, and robots against their own domain.
+ *  3. The production domain, https://elprince.net.
  */
 
 const vercelHost =
@@ -17,7 +14,7 @@ const vercelHost =
 
 export const siteUrl = (
   process.env.NEXT_PUBLIC_SITE_URL ??
-  (vercelHost ? `https://${vercelHost}` : "http://localhost:3000")
+  (vercelHost ? `https://${vercelHost}` : "https://elprince.net")
 ).replace(/\/$/, "");
 
 export const siteConfig = {

@@ -124,7 +124,7 @@ const card = el(
         el(
           "div",
           { fontSize: 24, color: "#7c7c85", marginTop: 40 },
-          "www.elprince.dev",
+          "elprince.net",
         ),
       ],
     ),
