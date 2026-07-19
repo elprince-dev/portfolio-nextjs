@@ -3,68 +3,179 @@
  * Generates the Open Graph preview card (public/og-image.png, 1200×630) used
  * by LinkedIn/Twitter/iMessage link previews (Req 15.2).
  *
- * Design matches the site: true-black background with a rose ambient glow,
- * the display name in white with a rose accent, the title line, the site
- * URL, and the profile photo in a rose ring on the right.
+ * Rendering pipeline: satori lays out the card (text becomes vector paths,
+ * so no system fonts are needed — sharp's SVG engine renders neither <text>
+ * nor embedded images reliably), then sharp rasterizes it and composites
+ * the circular profile photo on top.
+ *
+ * Fonts: Ember Modern (site typeface) when present in public/fonts/ember,
+ * otherwise the bundled Inter woffs in scripts/assets.
  *
  * Usage: node scripts/generate-og-image.mjs
  */
 
 import { readFile } from "node:fs/promises";
+import { existsSync } from "node:fs";
+import satori from "satori";
 import sharp from "sharp";
 
 const W = 1200;
 const H = 630;
 const OUT = "public/og-image.png";
 
-// Circular-cropped profile photo, embedded as base64.
+// Photo geometry (shared between the satori ring and the sharp composite).
 const PHOTO_SIZE = 300;
+const PHOTO_CX = 950;
+const PHOTO_CY = 315;
+
+// ---------------------------------------------------------------------------
+// Fonts: prefer the site's Ember Modern; fall back to bundled Inter.
+// ---------------------------------------------------------------------------
+async function loadFonts() {
+  const ember = "public/fonts/ember";
+  if (
+    existsSync(`${ember}/ember-text-regular.otf`) &&
+    existsSync(`${ember}/ember-display-bold.otf`)
+  ) {
+    return [
+      {
+        name: "Brand",
+        data: await readFile(`${ember}/ember-text-regular.otf`),
+        weight: 400,
+        style: "normal",
+      },
+      {
+        name: "Brand",
+        data: await readFile(`${ember}/ember-display-bold.otf`),
+        weight: 700,
+        style: "normal",
+      },
+    ];
+  }
+  return [
+    {
+      name: "Brand",
+      data: await readFile("scripts/assets/inter-400.woff"),
+      weight: 400,
+      style: "normal",
+    },
+    {
+      name: "Brand",
+      data: await readFile("scripts/assets/inter-700.woff"),
+      weight: 700,
+      style: "normal",
+    },
+  ];
+}
+
+// ---------------------------------------------------------------------------
+// Card layout (satori JSX-object syntax).
+// ---------------------------------------------------------------------------
+const el = (type, style, children = undefined) => ({
+  type,
+  props: { style, ...(children !== undefined ? { children } : {}) },
+});
+
+const card = el(
+  "div",
+  {
+    width: "100%",
+    height: "100%",
+    display: "flex",
+    backgroundColor: "#0a0a0b",
+    backgroundImage:
+      "radial-gradient(circle at 30% 40%, rgba(212,84,126,0.22), rgba(212,84,126,0) 65%)",
+    fontFamily: "Brand",
+  },
+  [
+    // Left column: accent bar, name, title, URL.
+    el(
+      "div",
+      {
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        paddingLeft: 84,
+        width: 740,
+      },
+      [
+        el("div", {
+          width: 76,
+          height: 10,
+          borderRadius: 5,
+          backgroundImage: "linear-gradient(90deg, #d4547e, #e07a9c)",
+          marginBottom: 42,
+        }),
+        el(
+          "div",
+          { fontSize: 78, fontWeight: 700, color: "#f5f5f7", lineHeight: 1.1 },
+          "Mohammad",
+        ),
+        el(
+          "div",
+          { fontSize: 78, fontWeight: 700, color: "#e07a9c", lineHeight: 1.1 },
+          "El Prince",
+        ),
+        el(
+          "div",
+          { fontSize: 34, color: "#a7a7b0", marginTop: 28 },
+          "Agentic AI Software Engineer",
+        ),
+        el(
+          "div",
+          { fontSize: 24, color: "#7c7c85", marginTop: 40 },
+          "www.elprince.dev",
+        ),
+      ],
+    ),
+    // Right column: rose rings around the (composited) photo slot.
+    el("div", {
+      position: "absolute",
+      left: PHOTO_CX - PHOTO_SIZE / 2 - 10,
+      top: PHOTO_CY - PHOTO_SIZE / 2 - 10,
+      width: PHOTO_SIZE + 20,
+      height: PHOTO_SIZE + 20,
+      borderRadius: 9999,
+      border: "5px solid #d4547e",
+    }),
+    el("div", {
+      position: "absolute",
+      left: PHOTO_CX - PHOTO_SIZE / 2 - 24,
+      top: PHOTO_CY - PHOTO_SIZE / 2 - 24,
+      width: PHOTO_SIZE + 48,
+      height: PHOTO_SIZE + 48,
+      borderRadius: 9999,
+      border: "2px solid rgba(212,84,126,0.35)",
+    }),
+  ],
+);
+
+// ---------------------------------------------------------------------------
+// Render: satori -> SVG (vector text) -> sharp raster + photo composite.
+// ---------------------------------------------------------------------------
+const svg = await satori(card, { width: W, height: H, fonts: await loadFonts() });
+const base = await sharp(Buffer.from(svg)).png().toBuffer();
+
+// Circular-cropped profile photo.
+const circleMask = Buffer.from(
+  `<svg width="${PHOTO_SIZE}" height="${PHOTO_SIZE}"><circle cx="${PHOTO_SIZE / 2}" cy="${PHOTO_SIZE / 2}" r="${PHOTO_SIZE / 2}" fill="#fff"/></svg>`,
+);
 const photo = await sharp("public/myPhoto.png")
   .resize(PHOTO_SIZE, PHOTO_SIZE, { fit: "cover" })
+  .composite([{ input: circleMask, blend: "dest-in" }])
   .png()
   .toBuffer();
-const photoB64 = photo.toString("base64");
 
-const svg = `
-<svg width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-  <defs>
-    <radialGradient id="glow" cx="30%" cy="40%" r="70%">
-      <stop offset="0%" stop-color="#d4547e" stop-opacity="0.22"/>
-      <stop offset="100%" stop-color="#d4547e" stop-opacity="0"/>
-    </radialGradient>
-    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0%" stop-color="#d4547e"/>
-      <stop offset="100%" stop-color="#e07a9c"/>
-    </linearGradient>
-    <clipPath id="photoClip">
-      <circle cx="960" cy="315" r="150"/>
-    </clipPath>
-  </defs>
+await sharp(base)
+  .composite([
+    {
+      input: photo,
+      left: PHOTO_CX - PHOTO_SIZE / 2,
+      top: PHOTO_CY - PHOTO_SIZE / 2,
+    },
+  ])
+  .png()
+  .toFile(OUT);
 
-  <!-- Background -->
-  <rect width="${W}" height="${H}" fill="#0a0a0b"/>
-  <rect width="${W}" height="${H}" fill="url(#glow)"/>
-
-  <!-- Accent bar -->
-  <rect x="84" y="208" width="76" height="10" rx="5" fill="url(#accent)"/>
-
-  <!-- Name -->
-  <text x="84" y="308" font-family="DejaVu Sans, sans-serif" font-weight="bold" font-size="76" fill="#f5f5f7">Mohammad</text>
-  <text x="84" y="398" font-family="DejaVu Sans, sans-serif" font-weight="bold" font-size="76" fill="#e07a9c">El Prince</text>
-
-  <!-- Title -->
-  <text x="84" y="470" font-family="DejaVu Sans, sans-serif" font-size="34" fill="#a7a7b0">Agentic AI Software Engineer</text>
-
-  <!-- URL chip -->
-  <text x="84" y="546" font-family="DejaVu Sans Mono, monospace" font-size="24" fill="#7c7c85">www.elprince.dev</text>
-
-  <!-- Photo ring + photo -->
-  <circle cx="960" cy="315" r="160" fill="none" stroke="#d4547e" stroke-width="5" opacity="0.9"/>
-  <circle cx="960" cy="315" r="172" fill="none" stroke="#d4547e" stroke-width="2" opacity="0.35"/>
-  <image x="810" y="165" width="${PHOTO_SIZE}" height="${PHOTO_SIZE}" clip-path="url(#photoClip)"
-         xlink:href="data:image/png;base64,${photoB64}"/>
-</svg>`;
-
-await sharp(Buffer.from(svg)).png().toFile(OUT);
 const meta = await sharp(OUT).metadata();
 console.log(`Wrote ${OUT} (${meta.width}x${meta.height})`);
