@@ -38,3 +38,7 @@ next-env.d.ts
 
 # kiro
 /.kiro
+
+# Proprietary fonts (Amazon Ember Modern) — do not publish to the public repo
+/fonts-source-ember
+/public/fonts/ember

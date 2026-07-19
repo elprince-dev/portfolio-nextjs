@@ -2,6 +2,77 @@
 @tailwind components;
 @tailwind utilities;
 
+/*
+ * Ember Modern 1.1 — the primary English typeface, self-hosted from
+ * /public/fonts/ember (proprietary; not on any public CDN). The Text family
+ * carries body copy (--font-sans) and the Display family carries the large
+ * editorial headings (--font-serif). No Medium cut exists, so weights
+ * 500–900 map to Bold.
+ */
+@font-face {
+  font-family: "Amazon Ember Modern";
+  src: url("/fonts/ember/ember-text-regular.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Amazon Ember Modern";
+  src: url("/fonts/ember/ember-text-italic.otf") format("opentype");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Amazon Ember Modern";
+  src: url("/fonts/ember/ember-text-bold.otf") format("opentype");
+  font-weight: 500 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Amazon Ember Modern";
+  src: url("/fonts/ember/ember-text-bolditalic.otf") format("opentype");
+  font-weight: 500 900;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Ember Modern Display";
+  src: url("/fonts/ember/ember-display-regular.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Ember Modern Display";
+  src: url("/fonts/ember/ember-display-italic.otf") format("opentype");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Ember Modern Display";
+  src: url("/fonts/ember/ember-display-bold.otf") format("opentype");
+  font-weight: 500 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Ember Modern Display";
+  src: url("/fonts/ember/ember-display-bolditalic.otf") format("opentype");
+  font-weight: 500 900;
+  font-style: italic;
+  font-display: swap;
+}
+
 /**
  * Design token CSS custom properties — the runtime source of truth for the
  * color palette. The Tailwind theme (tailwind.config.ts) maps semantic color
@@ -24,9 +95,10 @@
   --color-accent: #a83d62;
   --color-accent-foreground: #ffffff;
 
-  /* Font stacks (Google Fonts loaded via stylesheet in the root layout). */
-  --font-sans: "Inter", system-ui, -apple-system, sans-serif;
-  --font-serif: "Playfair Display", Georgia, "Times New Roman", serif;
+  /* Font stacks. English: self-hosted Ember Modern (Text for body,
+     Display for large headings) with Inter as the live fallback. */
+  --font-sans: "Amazon Ember Modern", "Inter", system-ui, -apple-system, sans-serif;
+  --font-serif: "Ember Modern Display", "Playfair Display", Georgia, serif;
   --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", monospace;
 
   /* Display rose used decoratively (marquee, gradients, glows). Interactive
@@ -64,10 +136,10 @@
   --globe-rim: rgba(0, 0, 0, 0.1);
 }
 
-/* Arabic (RTL) typography: Tajawal carries both display and body text. */
+/* Arabic (RTL) typography: Amiri carries both display and body text. */
 [dir="rtl"] {
-  --font-sans: "Tajawal", "Inter", system-ui, -apple-system, sans-serif;
-  --font-serif: "Tajawal", Georgia, serif;
+  --font-sans: "Amiri", "Traditional Arabic", system-ui, sans-serif;
+  --font-serif: "Amiri", "Traditional Arabic", Georgia, serif;
 }
 
 .dark {

@@ -55,6 +55,9 @@ const LOCAL_STRINGS = {
     resume: "Resume",
     at: "at",
     firstName: "Mohammad",
+    flatironName: "Flatiron School",
+    graduate: "Graduate",
+    flatironProgram: "Full Stack Web Development — Python & JavaScript",
   },
   ar: {
     certifications: "الشهادات",
@@ -63,6 +66,9 @@ const LOCAL_STRINGS = {
     resume: "السيرة الذاتية",
     at: "في",
     firstName: "محمد",
+    flatironName: "Flatiron School",
+    graduate: "خرّيج",
+    flatironProgram: "تطوير الويب المتكامل — Python وJavaScript",
   },
 } as const;
 
@@ -154,22 +160,39 @@ export function CredibilitySection({ locale = "en" }: { locale?: Locale }) {
                 {strings.certifications}
               </p>
             </div>
-            <div className="mt-auto pt-10">
-              <div className="flex flex-wrap items-center gap-2">
-                <h3 className="font-bold text-[var(--color-text-primary)]">
-                  Amazon Web Services
-                </h3>
-                <span className="rounded-full bg-[rgba(0,210,148,0.12)] px-2 py-0.5 text-[10px] font-semibold text-[var(--color-mint)]">
-                  {strings.certified}
-                </span>
+            <div className="mt-auto space-y-5 pt-8">
+              <div>
+                <div className="flex flex-wrap items-center gap-2">
+                  <h3 className="font-bold text-[var(--color-text-primary)]">
+                    Amazon Web Services
+                  </h3>
+                  <span className="rounded-full bg-[rgba(0,210,148,0.12)] px-2 py-0.5 text-[10px] font-semibold text-[var(--color-mint)]">
+                    {strings.certified}
+                  </span>
+                </div>
+                <p
+                  data-testid="aws-certification-count"
+                  className="mt-1.5 text-sm leading-relaxed text-[var(--color-text-secondary)]"
+                >
+                  {awsCertificationCount} {strings.awsCertifications}{" "}
+                  {awsCertifications.join(" · ")}
+                </p>
               </div>
-              <p
-                data-testid="aws-certification-count"
-                className="mt-1.5 text-sm leading-relaxed text-[var(--color-text-secondary)]"
-              >
-                {awsCertificationCount} {strings.awsCertifications}{" "}
-                {awsCertifications.join(" · ")}
-              </p>
+
+              {/* Flatiron School bootcamp credential. */}
+              <div>
+                <div className="flex flex-wrap items-center gap-2">
+                  <h3 className="font-bold text-[var(--color-text-primary)]">
+                    {strings.flatironName}
+                  </h3>
+                  <span className="rounded-full bg-[rgba(56,189,248,0.12)] px-2 py-0.5 text-[10px] font-semibold text-[#38bdf8]">
+                    {strings.graduate}
+                  </span>
+                </div>
+                <p className="mt-1.5 text-sm leading-relaxed text-[var(--color-text-secondary)]">
+                  {strings.flatironProgram}
+                </p>
+              </div>
             </div>
             </div>
           </GlowCard>

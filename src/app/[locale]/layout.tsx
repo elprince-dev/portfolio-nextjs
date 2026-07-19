@@ -118,15 +118,18 @@ export function generateMetadata({ params }: LayoutParams): Metadata {
 }
 
 /**
- * Google Fonts stylesheet for the editorial design language: Playfair Display
- * (serif display), Inter (body), JetBrains Mono (mono accents), and Tajawal
- * for the Arabic locale. Loaded as a runtime stylesheet (rather than
- * next/font) so builds succeed in offline environments; the CSS variables
- * consumed by Tailwind's `fontFamily` theme are defined in globals.css with
- * system fallbacks (and overridden for [dir="rtl"]).
+ * Google Fonts stylesheet: Playfair Display (serif display accents),
+ * Inter (English body fallback), JetBrains Mono (mono accents), and Amiri
+ * for the Arabic locale. The primary English face is Amazon Ember Modern,
+ * self-hosted via @font-face in globals.css (drop the .woff2 files into
+ * /public/fonts/ember/); Inter serves until those files exist. Loaded as a
+ * runtime stylesheet (rather than next/font) so builds succeed in offline
+ * environments; the CSS variables consumed by Tailwind's `fontFamily` theme
+ * are defined in globals.css with system fallbacks (and overridden for
+ * [dir="rtl"]).
  */
 const GOOGLE_FONTS_HREF =
-  "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@700;900&family=JetBrains+Mono:wght@400;500&family=Tajawal:wght@400;500;700;900&display=swap";
+  "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@700;900&family=JetBrains+Mono:wght@400;500&family=Amiri:ital,wght@0,400;0,700;1,400&display=swap";
 
 export default function RootLayout({
   children,

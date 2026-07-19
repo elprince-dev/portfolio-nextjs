@@ -136,7 +136,7 @@ export function ExperienceTimeline({ stages }: ExperienceTimelineProps) {
       <div
         ref={lineRef}
         aria-hidden="true"
-        className="absolute bottom-0 left-5 w-px bg-[var(--color-border)] opacity-70 md:left-1/2 md:-translate-x-1/2"
+        className="absolute bottom-0 start-5 w-px bg-[var(--color-border)] opacity-70 md:start-1/2 md:ltr:-translate-x-1/2"
         style={{ top: "1.375rem" }}
       >
         <div
@@ -171,7 +171,7 @@ export function ExperienceTimeline({ stages }: ExperienceTimelineProps) {
                   scaling up on hover with perpetual ripple rings. */}
               <span
                 aria-hidden="true"
-                className="absolute left-5 top-0 z-10 flex h-11 w-11 -translate-x-1/2 items-center justify-center rounded-full text-white ring-4 ring-[var(--color-background)] transition-transform duration-300 hover:scale-125 md:hidden"
+                className="absolute start-5 top-0 z-10 flex h-11 w-11 -translate-x-1/2 items-center justify-center rounded-full text-white ring-4 ring-[var(--color-background)] transition-transform duration-300 hover:scale-125 rtl:translate-x-1/2 md:hidden"
                 style={
                   {
                     backgroundColor: style.color,
@@ -201,10 +201,10 @@ export function ExperienceTimeline({ stages }: ExperienceTimelineProps) {
               </span>
 
               <div
-                className={`pl-14 md:pl-0 ${
+                className={`ps-14 ${
                   onLeft
-                    ? "md:col-start-1 md:pr-24"
-                    : "md:col-start-2 md:pl-24"
+                    ? "md:col-start-1 md:pe-24 md:ps-0"
+                    : "md:col-start-2 md:ps-24"
                 }`}
               >
                 <p
