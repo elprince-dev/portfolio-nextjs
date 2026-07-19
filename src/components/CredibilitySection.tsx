@@ -58,6 +58,7 @@ const LOCAL_STRINGS = {
     flatironName: "Flatiron School",
     graduate: "Graduate",
     flatironProgram: "Full Stack Web Development — Python & JavaScript",
+    markerLabel: "Milton, ON",
   },
   ar: {
     certifications: "الشهادات",
@@ -69,6 +70,7 @@ const LOCAL_STRINGS = {
     flatironName: "Flatiron School",
     graduate: "خرّيج",
     flatironProgram: "تطوير الويب المتكامل — Python وJavaScript",
+    markerLabel: "ميلتون، أونتاريو",
   },
 } as const;
 
@@ -140,7 +142,7 @@ export function CredibilitySection({ locale = "en" }: { locale?: Locale }) {
             </h3>
             {/* Draggable wireframe earth — click and move to spin. */}
             <div className="absolute -bottom-24 left-1/2 h-72 w-72 -translate-x-1/2">
-              <Globe />
+              <Globe markerLabel={strings.markerLabel} />
             </div>
             {/* Spacer keeps the card tall enough for the globe. */}
             <div aria-hidden="true" className="h-44" />

@@ -41,8 +41,8 @@ const AR_ABOUT: AboutContent = {
   visionTail: "معًا.",
   clockLabel: "تورونتو",
   quote: {
-    text: "ما زلنا في اليوم الأول.",
-    attribution: "جيف بيزوس",
+    text: "إنَّ اللهَ يحبُّ إذا عمِلَ أحدُكم عملًا أن يُتقِنَه.",
+    attribution: "النبي محمد ﷺ",
   },
 };
 

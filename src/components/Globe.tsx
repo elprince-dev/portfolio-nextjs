@@ -30,6 +30,16 @@ const AUTO_VELOCITY = 0.002; // idle spin, degrees per ms (≈2°/s)
 const MOMENTUM_TAU = 500; // ms time-constant for flick decay
 const MAX_VELOCITY = 1.2; // deg/ms clamp for wild flicks
 
+/** Home-base marker: Milton, ON (approx). Precomputed spherical terms. */
+const MARKER_LAT = 43.51;
+const MARKER_LON = -79.88;
+const MARKER_LON_RAD = (MARKER_LON * Math.PI) / 180;
+const MARKER_SIN_LAT = Math.sin((MARKER_LAT * Math.PI) / 180);
+const MARKER_COS_LAT = Math.cos((MARKER_LAT * Math.PI) / 180);
+/** Pulse ring period (ms); a user-approved looping accent (Req 12.5
+ * exception) — frozen under prefers-reduced-motion. */
+const MARKER_PULSE_MS = 2200;
+
 /**
  * Land dots decoded from the generated Natural Earth bitmap (module scope:
  * decoded once). Each hex digit packs 4 longitude columns, MSB-first.
@@ -56,7 +66,12 @@ const DOT_COS: number[] = [];
   }
 }
 
-export function Globe() {
+export function Globe({
+  markerLabel = "Milton, ON",
+}: {
+  /** Callout label shown beside the home-base marker (localized). */
+  markerLabel?: string;
+}) {
   const prefersReducedMotion = usePrefersReducedMotion();
   const canvasRef = useRef<HTMLCanvasElement>(null);
   // Default view centers the Americas (Toronto ≈ 79°W) with a slight tilt.
@@ -137,6 +152,100 @@ export function Globe() {
       ctx.fill();
     }
     ctx.globalAlpha = 1;
+
+    // Home-base marker (Milton, ON): rotates with the sphere and hides
+    // behind the horizon. A mint core with a soft glow and an expanding
+    // pulse ring; the pulse freezes under prefers-reduced-motion.
+    {
+      const lon = MARKER_LON_RAD + rot;
+      const mx = MARKER_COS_LAT * Math.sin(lon);
+      const mz0 = MARKER_COS_LAT * Math.cos(lon);
+      const my0 = MARKER_SIN_LAT;
+      const my = my0 * ct - mz0 * st;
+      const mz = my0 * st + mz0 * ct;
+      if (mz > 0.05) {
+        const px2 = CX + R * mx;
+        const py2 = CY - R * my;
+        const markerColor = cssVar("--color-mint", "#00d294");
+        const depth = 0.55 + 0.45 * mz; // fade slightly toward the edge
+
+        // Expanding pulse ring.
+        const phase = prefersReducedMotion
+          ? 0.35
+          : (performance.now() % MARKER_PULSE_MS) / MARKER_PULSE_MS;
+        ctx.beginPath();
+        ctx.arc(px2, py2, 3 + 9 * phase, 0, Math.PI * 2);
+        ctx.strokeStyle = markerColor;
+        ctx.globalAlpha = depth * 0.55 * (1 - phase);
+        ctx.lineWidth = 1.4;
+        ctx.stroke();
+
+        // Soft glow.
+        const glow = ctx.createRadialGradient(px2, py2, 0, px2, py2, 9);
+        glow.addColorStop(0, markerColor);
+        glow.addColorStop(1, "transparent");
+        ctx.globalAlpha = depth * 0.5;
+        ctx.beginPath();
+        ctx.arc(px2, py2, 9, 0, Math.PI * 2);
+        ctx.fillStyle = glow;
+        ctx.fill();
+
+        // Core dot with a bright center.
+        ctx.globalAlpha = depth;
+        ctx.beginPath();
+        ctx.arc(px2, py2, 3, 0, Math.PI * 2);
+        ctx.fillStyle = markerColor;
+        ctx.fill();
+        ctx.beginPath();
+        ctx.arc(px2, py2, 1.3, 0, Math.PI * 2);
+        ctx.fillStyle = "#ffffff";
+        ctx.fill();
+
+        // Labeled callout: a small glass pill anchored to the marker by a
+        // short leader line. Fades with depth and hides near the horizon so
+        // it never floats detached from its dot.
+        if (mz > 0.3 && markerLabel) {
+          const fontFamily = styles.fontFamily || "system-ui, sans-serif";
+          ctx.font = `600 9.5px ${fontFamily}`;
+          const textWidth = ctx.measureText(markerLabel).width;
+          const padX = 7;
+          const pillW = textWidth + padX * 2;
+          const pillH = 17;
+          // Place up-right of the marker; flip left near the right edge.
+          const flip = px2 + 14 + pillW > VIEW - 6;
+          const pillX = flip ? px2 - 14 - pillW : px2 + 14;
+          const pillY = py2 - 26;
+          const labelAlpha = Math.min(1, (mz - 0.3) / 0.35) * depth;
+
+          // Leader line from the dot to the pill.
+          ctx.globalAlpha = labelAlpha * 0.6;
+          ctx.strokeStyle = markerColor;
+          ctx.lineWidth = 1;
+          ctx.beginPath();
+          ctx.moveTo(px2, py2 - 4);
+          ctx.lineTo(flip ? pillX + pillW : pillX, pillY + pillH / 2);
+          ctx.stroke();
+
+          // Glass pill.
+          ctx.globalAlpha = labelAlpha;
+          ctx.beginPath();
+          ctx.roundRect(pillX, pillY, pillW, pillH, 8.5);
+          ctx.fillStyle = cssVar("--surface-glass-bg", "rgba(20,20,24,0.8)");
+          ctx.fill();
+          ctx.strokeStyle = markerColor;
+          ctx.globalAlpha = labelAlpha * 0.7;
+          ctx.stroke();
+
+          // Label text.
+          ctx.globalAlpha = labelAlpha;
+          ctx.fillStyle = cssVar("--color-text-primary", "#e7e7ea");
+          ctx.textBaseline = "middle";
+          ctx.textAlign = "left";
+          ctx.fillText(markerLabel, pillX + padX, pillY + pillH / 2 + 0.5);
+        }
+        ctx.globalAlpha = 1;
+      }
+    }
 
     // Rim light: brightest at the equatorial edges, dark at the top.
     const rim = ctx.createLinearGradient(0, CY - R, 0, CY + R);

@@ -36,8 +36,8 @@ export const about: AboutContent = {
   visionTail: "together.",
   clockLabel: "Toronto",
   quote: {
-    text: "It's still Day 1.",
-    attribution: "Jeff Bezos",
+    text: "Verily, Allah loves that when any one of you does a job, he perfects it.",
+    attribution: "Prophet Muhammad ﷺ",
   },
 };
 

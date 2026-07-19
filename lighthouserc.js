@@ -28,9 +28,15 @@
  *        full sitemap.xml/robots.txt content validated by scripts/check-seo-routes.mjs)
  */
 
+// Locale-prefixed targets: "/" and "/blog" now 307-redirect to the default
+// locale (/en) via the i18n middleware. Lighthouse must audit the final
+// URLs directly — auditing a redirecting URL adds a navigation hop under
+// simulated mobile throttling, which unfairly blows the FCP/LCP budgets and
+// dings the SEO category. Both locales of the home page are asserted.
 const TARGET_URLS = [
-  "http://localhost:3000/",
-  "http://localhost:3000/blog",
+  "http://localhost:3000/en",
+  "http://localhost:3000/ar",
+  "http://localhost:3000/en/blog",
 ];
 
 module.exports = {
