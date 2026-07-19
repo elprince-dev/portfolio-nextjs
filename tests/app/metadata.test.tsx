@@ -64,14 +64,14 @@ describe("Open Graph and Twitter Card metadata (Req 15.2)", () => {
 });
 
 describe("sitemap.xml content (Req 15.3)", () => {
-  it("returns entries for the home and blog routes in both locales with absolute URLs", () => {
+  it("returns entries for the home and contact routes in both locales with absolute URLs", () => {
     const entries = sitemap();
     expect(entries.length).toBeGreaterThan(0);
     const urls = entries.map((entry) => entry.url);
     expect(urls).toContain(`${siteUrl}/en`);
-    expect(urls).toContain(`${siteUrl}/en/blog`);
+    expect(urls).toContain(`${siteUrl}/en/contact`);
     expect(urls).toContain(`${siteUrl}/ar`);
-    expect(urls).toContain(`${siteUrl}/ar/blog`);
+    expect(urls).toContain(`${siteUrl}/ar/contact`);
     for (const entry of entries) {
       expect(entry.url.startsWith("http")).toBe(true);
     }

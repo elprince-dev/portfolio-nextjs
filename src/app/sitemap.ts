@@ -5,8 +5,8 @@ import { locales } from "@/lib/i18n";
 
 /**
  * Generates `sitemap.xml` (Req 15.3). Lists the public routes — the home
- * page, the preserved blog list, the contact page, and the project detail
- * pages — for every locale (/en, /ar).
+ * page, the contact page, and the project detail pages — for every locale
+ * (/en, /ar).
  */
 export default function sitemap(): MetadataRoute.Sitemap {
   const lastModified = new Date();
@@ -17,12 +17,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified,
       changeFrequency: "monthly" as const,
       priority: 1,
-    },
-    {
-      url: `${siteUrl}/${locale}/blog`,
-      lastModified,
-      changeFrequency: "weekly" as const,
-      priority: 0.7,
     },
     {
       url: `${siteUrl}/${locale}/contact`,

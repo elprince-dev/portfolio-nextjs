@@ -82,8 +82,10 @@ export function ProjectsSection({ locale = "en" }: { locale?: Locale }) {
                         } as CSSProperties
                       }
                     />
-                    {/* Header row: number ---- category ---- timeframe. */}
-                    <div className="flex items-center gap-3 font-mono text-xs uppercase tracking-[0.25em]">
+                    {/* Header row: number ---- category ---- timeframe.
+                        Tighter type/tracking below `sm` so long category
+                        labels don't overflow the card on narrow screens. */}
+                    <div className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.15em] sm:gap-3 sm:text-xs sm:tracking-[0.25em]">
                       <span className="text-[var(--color-accent)]">{number}</span>
                       <span className="h-px grow border-t border-dashed border-[var(--color-border)]" />
                       <span className="text-[var(--color-text-muted)]">
@@ -152,10 +154,12 @@ export function ProjectsSection({ locale = "en" }: { locale?: Locale }) {
                     </div>
 
                     {/* Rotating "open to explore" badge: follows the cursor
-                        anywhere over the card while hovered. */}
+                        anywhere over the card while hovered. Hidden on
+                        devices without a real hover (touch), where iOS's
+                        sticky :hover would leave it stuck over the title. */}
                     <span
                       aria-hidden="true"
-                      className="pointer-events-none absolute left-0 top-0 z-30 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+                      className="pointer-events-none absolute left-0 top-0 z-30 opacity-0 transition-opacity duration-300 group-hover:opacity-100 [@media(hover:none)]:hidden"
                       style={{
                         // Transform-only positioning: GPU-composited and
                         // updated per mousemove, so it tracks smoothly.

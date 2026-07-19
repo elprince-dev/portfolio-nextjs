@@ -185,7 +185,10 @@ export function Navbar({ locale = "en" }: { locale?: Locale }) {
             setMenuOpen(false);
           }}
           aria-label={dict.nav.logoLabel}
-          className="cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)]"
+          // Pill surface matching the right-side controls: the header is
+          // fixed and transparent, so without a background the logo mark
+          // collides visually with content scrolling underneath it.
+          className="cursor-pointer rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)]/95 p-1.5 backdrop-blur-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)]"
         >
           {/* Logo mark rendered in the current theme color via CSS mask. */}
           <span aria-hidden="true" className="logo-mark" />

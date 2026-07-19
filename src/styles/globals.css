@@ -2,77 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-/*
- * Ember Modern 1.1 — the primary English typeface, self-hosted from
- * /public/fonts/ember (proprietary; not on any public CDN). The Text family
- * carries body copy (--font-sans) and the Display family carries the large
- * editorial headings (--font-serif). No Medium cut exists, so weights
- * 500–900 map to Bold.
- */
-@font-face {
-  font-family: "Amazon Ember Modern";
-  src: url("/fonts/ember/ember-text-regular.otf") format("opentype");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Amazon Ember Modern";
-  src: url("/fonts/ember/ember-text-italic.otf") format("opentype");
-  font-weight: 400;
-  font-style: italic;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Amazon Ember Modern";
-  src: url("/fonts/ember/ember-text-bold.otf") format("opentype");
-  font-weight: 500 900;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Amazon Ember Modern";
-  src: url("/fonts/ember/ember-text-bolditalic.otf") format("opentype");
-  font-weight: 500 900;
-  font-style: italic;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Ember Modern Display";
-  src: url("/fonts/ember/ember-display-regular.otf") format("opentype");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Ember Modern Display";
-  src: url("/fonts/ember/ember-display-italic.otf") format("opentype");
-  font-weight: 400;
-  font-style: italic;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Ember Modern Display";
-  src: url("/fonts/ember/ember-display-bold.otf") format("opentype");
-  font-weight: 500 900;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Ember Modern Display";
-  src: url("/fonts/ember/ember-display-bolditalic.otf") format("opentype");
-  font-weight: 500 900;
-  font-style: italic;
-  font-display: swap;
-}
-
 /**
  * Design token CSS custom properties — the runtime source of truth for the
  * color palette. The Tailwind theme (tailwind.config.ts) maps semantic color
@@ -95,11 +24,14 @@
   --color-accent: #a83d62;
   --color-accent-foreground: #ffffff;
 
-  /* Font stacks. English: self-hosted Ember Modern (Text for body,
-     Display for large headings) with Inter as the live fallback. */
-  --font-sans: "Amazon Ember Modern", "Inter", system-ui, -apple-system, sans-serif;
-  --font-serif: "Ember Modern Display", "Playfair Display", Georgia, serif;
-  --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", monospace;
+  /* Font stacks. English: Philosopher (regular/bold + italics) carries
+     both body copy and the large editorial headings. The
+     --font-philosopher/--font-jetbrains/--font-amiri variables are
+     provided by next/font in the locale layout (self-hosted at build
+     time — no render-blocking Google Fonts stylesheet at runtime). */
+  --font-sans: var(--font-philosopher, "Philosopher"), system-ui, -apple-system, sans-serif;
+  --font-serif: var(--font-philosopher, "Philosopher"), Georgia, serif;
+  --font-mono: var(--font-jetbrains, "JetBrains Mono"), ui-monospace, "SF Mono", monospace;
 
   /* Display rose used decoratively (marquee, gradients, glows). Interactive
      elements use --color-accent, which is contrast-audited. */
@@ -138,8 +70,8 @@
 
 /* Arabic (RTL) typography: Amiri carries both display and body text. */
 [dir="rtl"] {
-  --font-sans: "Amiri", "Traditional Arabic", system-ui, sans-serif;
-  --font-serif: "Amiri", "Traditional Arabic", Georgia, serif;
+  --font-sans: var(--font-amiri, "Amiri"), "Traditional Arabic", system-ui, sans-serif;
+  --font-serif: var(--font-amiri, "Amiri"), "Traditional Arabic", Georgia, serif;
 }
 
 .dark {
@@ -436,7 +368,25 @@
     opacity: 0.55;
   }
 
+  /*
+   * Hero entrance (Req 12.1, 12.4): a pure-CSS rise bounded by the 600ms
+   * ceiling. Two deliberate properties keep the LCP heading fast (Req 13.2):
+   * the server HTML never ships `opacity: 0` (a JS-driven framer-motion
+   * `hidden` variant would hide it until hydration), and the animation is
+   * transform-only — animating opacity would delay the "visibly painted"
+   * LCP timestamp to the end of the fade, while a composited translate
+   * leaves the heading fully visible from the very first frame. Disabled
+   * under prefers-reduced-motion (Req 12.3).
+   */
+  .hero-enter {
+    animation: hero-enter 0.6s ease-out both;
+  }
+
   @media (prefers-reduced-motion: reduce) {
+    .hero-enter {
+      animation: none;
+    }
+
     .marquee-track {
       animation: none;
     }
@@ -453,6 +403,15 @@
     .spin-slow {
       animation: none;
     }
+  }
+}
+
+@keyframes hero-enter {
+  from {
+    transform: translateY(24px);
+  }
+  to {
+    transform: none;
   }
 }
 

@@ -22,6 +22,23 @@ vi.mock("next/navigation", async (importOriginal) => {
   };
 });
 
+// The locale layout loads fonts through next/font/google (Philosopher,
+// JetBrains Mono, Amiri), which requires Next's build pipeline and throws
+// under Vitest. Mock every export as a loader returning the shape the
+// layout consumes (className/variable/style).
+vi.mock("next/font/google", () => {
+  const fontLoader = () => ({
+    className: "mock-font",
+    variable: "--mock-font",
+    style: { fontFamily: "mock-font" },
+  });
+  return {
+    Philosopher: fontLoader,
+    JetBrains_Mono: fontLoader,
+    Amiri: fontLoader,
+  };
+});
+
 // Register jest-axe's `toHaveNoViolations` matcher with Vitest's expect.
 expect.extend(toHaveNoViolations);
 

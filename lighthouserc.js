@@ -1,11 +1,10 @@
 /**
  * Lighthouse CI configuration — Final verification (Task 11.2).
  *
- * Runs Lighthouse against a production build of the home page (and the
- * preserved `/blog` route) and asserts the external performance, accessibility,
- * and SEO metrics defined by the design's "Integration Tests (external
- * metrics)" section. Each assertion is annotated with the requirement it
- * validates.
+ * Runs Lighthouse against a production build of the home page (both locales)
+ * and asserts the external performance, accessibility, and SEO metrics
+ * defined by the design's "Integration Tests (external metrics)" section.
+ * Each assertion is annotated with the requirement it validates.
  *
  * Lighthouse defaults to an emulated mobile device with simulated network/CPU
  * throttling, which matches the "Lighthouse simulated mobile conditions"
@@ -28,15 +27,14 @@
  *        full sitemap.xml/robots.txt content validated by scripts/check-seo-routes.mjs)
  */
 
-// Locale-prefixed targets: "/" and "/blog" now 307-redirect to the default
-// locale (/en) via the i18n middleware. Lighthouse must audit the final
-// URLs directly — auditing a redirecting URL adds a navigation hop under
-// simulated mobile throttling, which unfairly blows the FCP/LCP budgets and
-// dings the SEO category. Both locales of the home page are asserted.
+// Locale-prefixed targets: "/" 307-redirects to the default locale (/en)
+// via the i18n middleware. Lighthouse must audit the final URLs directly —
+// auditing a redirecting URL adds a navigation hop under simulated mobile
+// throttling, which unfairly blows the FCP/LCP budgets and dings the SEO
+// category. Both locales of the home page are asserted.
 const TARGET_URLS = [
   "http://localhost:3000/en",
   "http://localhost:3000/ar",
-  "http://localhost:3000/en/blog",
 ];
 
 module.exports = {
@@ -59,8 +57,7 @@ module.exports = {
     },
     assert: {
       // Category-score budgets apply to every collected URL. The metric and
-      // SEO-route assertions below are the home-page acceptance criteria; they
-      // also hold for /blog, which shares the same shell and metadata.
+      // SEO-route assertions below are the home-page acceptance criteria.
       assertions: {
         // 13.1 Performance category >= 95
         "categories:performance": ["error", { minScore: 0.95 }],

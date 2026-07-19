@@ -8,14 +8,14 @@
  * nor embedded images reliably), then sharp rasterizes it and composites
  * the circular profile photo on top.
  *
- * Fonts: Ember Modern (site typeface) when present in public/fonts/ember,
- * otherwise the bundled Inter woffs in scripts/assets.
+ * Fonts: the bundled Inter woffs in scripts/assets (satori needs raw font
+ * data; the site's Philosopher face is loaded by next/font at build time
+ * and is not available here as a file).
  *
  * Usage: node scripts/generate-og-image.mjs
  */
 
 import { readFile } from "node:fs/promises";
-import { existsSync } from "node:fs";
 import satori from "satori";
 import sharp from "sharp";
 
@@ -29,29 +29,9 @@ const PHOTO_CX = 950;
 const PHOTO_CY = 315;
 
 // ---------------------------------------------------------------------------
-// Fonts: prefer the site's Ember Modern; fall back to bundled Inter.
+// Fonts: bundled Inter woffs.
 // ---------------------------------------------------------------------------
 async function loadFonts() {
-  const ember = "public/fonts/ember";
-  if (
-    existsSync(`${ember}/ember-text-regular.otf`) &&
-    existsSync(`${ember}/ember-display-bold.otf`)
-  ) {
-    return [
-      {
-        name: "Brand",
-        data: await readFile(`${ember}/ember-text-regular.otf`),
-        weight: 400,
-        style: "normal",
-      },
-      {
-        name: "Brand",
-        data: await readFile(`${ember}/ember-display-bold.otf`),
-        weight: 700,
-        style: "normal",
-      },
-    ];
-  }
   return [
     {
       name: "Brand",

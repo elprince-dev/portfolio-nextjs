@@ -3,7 +3,6 @@
 import Image from "next/image";
 import { AiOutlineGithub, AiOutlineLinkedin } from "react-icons/ai";
 import { HiArrowRight, HiDocumentText } from "react-icons/hi";
-import { MotionReveal } from "@/components/MotionReveal";
 import { Marquee } from "@/components/Marquee";
 import { contact } from "@/content/contact";
 import type { Locale } from "@/lib/i18n";
@@ -44,10 +43,11 @@ export function HeroSection({ locale = "en" }: { locale?: Locale }) {
         style={{ background: "var(--color-rose-glow)" }}
       />
 
-      <MotionReveal
-        complexity="standard"
-        className="relative z-10 flex grow flex-col items-center justify-center px-4 pb-44 pt-16 text-center sm:px-6 sm:pb-48"
-      >
+      {/* Entrance is a pure-CSS animation (`.hero-enter`) rather than
+          MotionReveal: the JS-driven variant server-renders `opacity:0`,
+          which hides the LCP heading until hydration completes and tanks
+          LCP on mobile (Req 13.2). CSS starts animating at first paint. */}
+      <div className="hero-enter relative z-10 flex grow flex-col items-center justify-center px-4 pb-44 pt-16 text-center sm:px-6 sm:pb-48">
         {/* Photo (Req 1.2): a prominent portrait with a rose ring + glow. */}
         <Image
           src="/myPhoto.png"
@@ -58,7 +58,10 @@ export function HeroSection({ locale = "en" }: { locale?: Locale }) {
           className="mb-8 h-32 w-32 rounded-full object-cover shadow-[0_0_45px_var(--color-rose-glow)] ring-2 ring-[var(--color-accent)]/70 ring-offset-4 ring-offset-[var(--color-background)] sm:h-40 sm:w-40"
         />
 
-        <h1 className="text-gradient-rose max-w-6xl pb-2 font-sans text-6xl font-black leading-[1.15] tracking-tight rtl:tracking-normal sm:text-7xl lg:text-[6.5rem]">
+        {/* Fluid type below the `sm` breakpoint: a fixed 60px (`text-6xl`)
+            overflows narrow viewports (e.g. in-app browsers), clipping the
+            name — 12vw scales with the device instead (Req 11.4). */}
+        <h1 className="text-gradient-rose max-w-6xl pb-2 font-sans text-[clamp(2.5rem,12vw,3.75rem)] font-black leading-[1.15] tracking-tight rtl:tracking-normal sm:text-7xl lg:text-[6.5rem]">
           {dict.hero.name}
         </h1>
 
@@ -111,7 +114,7 @@ export function HeroSection({ locale = "en" }: { locale?: Locale }) {
             <AiOutlineLinkedin aria-hidden="true" size={18} />
           </a>
         </div>
-      </MotionReveal>
+      </div>
 
       {/* Decorative crossing ticker ribbons pinned to the bottom. */}
       <div
