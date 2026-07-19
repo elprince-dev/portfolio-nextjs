@@ -27,6 +27,7 @@ export interface UIDictionary {
     languageToggleLabel: string;
   };
   hero: {
+    name: string;
     title: string;
     viewMyWork: string;
     resume: string;
@@ -133,6 +134,7 @@ const en: UIDictionary = {
     languageToggleLabel: "التبديل إلى العربية",
   },
   hero: {
+    name: "Mohammad El Prince",
     title: "Agentic AI Software Engineer",
     viewMyWork: "View my work",
     resume: "Resume",
@@ -264,6 +266,7 @@ const ar: UIDictionary = {
     languageToggleLabel: "Switch to English",
   },
   hero: {
+    name: "محمد البرنس",
     title: "مهندس برمجيات ذكاء اصطناعي وكيلي",
     viewMyWork: "استعرض أعمالي",
     resume: "السيرة الذاتية",

@@ -58,8 +58,8 @@ export function HeroSection({ locale = "en" }: { locale?: Locale }) {
           className="mb-8 h-32 w-32 rounded-full object-cover shadow-[0_0_45px_var(--color-rose-glow)] ring-2 ring-[var(--color-accent)]/70 ring-offset-4 ring-offset-[var(--color-background)] sm:h-40 sm:w-40"
         />
 
-        <h1 className="text-gradient-rose max-w-6xl pb-2 font-sans text-6xl font-black leading-[1.02] tracking-tight sm:text-7xl lg:text-[6.5rem]">
-          Mohammad El Prince
+        <h1 className="text-gradient-rose max-w-6xl pb-2 font-sans text-6xl font-black leading-[1.15] tracking-tight rtl:tracking-normal sm:text-7xl lg:text-[6.5rem]">
+          {dict.hero.name}
         </h1>
 
         <p className="mt-5 text-base text-[var(--color-text-secondary)] sm:text-lg">

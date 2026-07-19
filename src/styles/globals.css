@@ -108,6 +108,17 @@
 }
 
 @layer base {
+  /*
+   * Clip horizontal overflow at the root. Decorative elements (rotated
+   * marquee ribbons, floating widgets, glows) can extend past the viewport
+   * on small screens; without this the mobile layout viewport widens and
+   * the fixed navbar's right-side controls end up off-screen.
+   */
+  html,
+  body {
+    overflow-x: hidden;
+  }
+
   body {
     background-color: var(--color-background);
     color: var(--color-text-primary);
